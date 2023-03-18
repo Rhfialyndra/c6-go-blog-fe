@@ -1,4 +1,11 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Folder stucture
+./src
+    |_ components  --> setiap komponen yang di build taro di sini, e.g user card, user profile template
+    |_ pages       --> html/page yang mau di serve e.g /user , /auth
+    |_ styles      --> css config, better not touch this
+    |_ queries     --> api queries, function, mutation (basically buat function get atau POST)
+./public          --> buat asset, img, icon, jpg, dll.
+
 
 ## Getting Started
 
