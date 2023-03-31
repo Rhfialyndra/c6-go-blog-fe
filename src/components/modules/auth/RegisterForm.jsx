@@ -1,10 +1,15 @@
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoArrowBack } from "react-icons/io5";
+import { useRouter } from "next/router";
+import {registerAccount} from "../../../queries/auth/register";
 
 const RegisterForm= () => {
+
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -25,16 +30,48 @@ const RegisterForm= () => {
   });
 
   
-  const onSubmit = (data) => {
-    const [year, month, date] = data.birthdate.split("-");
+  const onSubmit = async (data) => {
+
+    setIsLoading(true)
+    const {username, fullname, birthdate, gender, email, password} = data;
+
+    const [year, month, date] = birthdate.split("-");
     let cleanString = date + "/" + month + "/" + year;
     console.log(data, cleanString)
 
-    // empty all of the input fields
+    //const res = await registerAccount(username, fullname, email, gender, birthdate, password);
+
+    setTimeout( () => {
+
+      setIsLoading(false)
+      toast.error("incorrect password or username", {
+        style: {
+          border: '1px solid #ff5b24',
+          padding: '16px',
+          color: '#ff5b24',
+        },
+        iconTheme: {
+          primary: '#ff5b24',
+          secondary: '#FFFAEE',
+        },
+      })
+
+      toast.success("login successfull", {
+        style: {
+          border: '1px solid #089c0d',
+          padding: '16px',
+          color: '#089c0d',
+        },
+        iconTheme: {
+          primary: '#089c0d',
+          secondary: '#FFFAEE',
+        },
+      })
+    },2000)
   };
 
   return (
-    <section className=" flex flex-col gap-y-10 items-center bg-[#F7FAFC] lg:bg-white">
+    <section className={`flex flex-col gap-y-10 items-center bg-[#F7FAFC] lg:bg-white ` }>
       {/*actual body*/}
       <div className="relative flex flex-col mb-20 lg:mb-0 gap-y-4 lg:gap-y-3 w-11/12 max-w-md lg:w-full lg:max-w-full">
         {/*page header and back button for smaller device*/}
@@ -170,8 +207,8 @@ const RegisterForm= () => {
                 required: "Data ini wajib diisi",
               })}
             >
-              <option value="0">Pria</option>
-              <option value="1">Wanita</option>
+              <option value="MALE">Pria</option>
+              <option value="FEMALE">Wanita</option>
             </select>
 
             {errors.gender && (
@@ -257,13 +294,13 @@ const RegisterForm= () => {
           {/*submit button; disabled when form is not filled (!isDirty) or input is invalid (!isvalid)*/}
           <div className="mt-2 w-full flex flex-row justify-center">
             <button
-              disabled={!isDirty || !isValid}
+              disabled={!isDirty || !isValid || isLoading}
               type="submit"
               className={
                 "w-full lg:w-auto cursor-pointer text-white text-base p-6 py-3 rounded-md transition-all duration-200 shadow-lg" +
-                (!isDirty || !isValid
+                (!isDirty || !isValid || isLoading
                   ? " bg-gray-400"
-                  : " bg-[#30b465] hover:bg-[#27884e]")
+                  : " bg-[#30b465] hover:bg-[#27884e]") + (isLoading ? ' cursor-wait' : "")
               }
             >
               register

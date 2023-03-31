@@ -1,10 +1,12 @@
-import LoginForm from "@components/modules/auth/LoginForm";
 import { Toaster } from "react-hot-toast";
+import RegisterForm from "@components/modules/auth/RegisterForm";
 
-const Login = () => {
+const Register  = () => {
     return<main className="max-w-screen min-h-screen w-screen bg-white flex items-center justify-center">
-            <LoginForm/>
+            <RegisterForm/>
             <Toaster position="bottom-center"/>
     </main>
 }
-export default Login;
+
+
+export default Register;
