@@ -1,5 +1,4 @@
-
-import {  useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../../../queries/auth/login";
 import toast from "react-hot-toast";
@@ -8,12 +7,10 @@ import { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
 import { errorToast, successToast } from "../../../utils/toast";
 
-const LoginForm= () => {
-
+const LoginForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const {login} = useAuth()
-
+  const { login } = useAuth();
 
   const {
     register,
@@ -24,39 +21,35 @@ const LoginForm= () => {
     mode: "onChange",
     reValidateMode: "onBlur", //validate whenever user click outside of input field
     defaultValues: {
-      email :'',
-      password : ''
+      email: "",
+      password: "",
     },
   });
 
-  
   const onSubmit = async (data) => {
+    setIsLoading(true);
+    const { email, password } = data;
 
-    setIsLoading(true)
-    const {email, password} = data;
+    const res = await loginUser(email, password);
 
-    const res = await loginUser(email, password)
-
-    setTimeout( () => {
-
-      setIsLoading(false)
-      if (res.status >= 400){
-        errorToast(res.message)
+    setTimeout(() => {
+      setIsLoading(false);
+      if (res.status >= 400) {
+        errorToast(res.message);
+      } else if (res.status == 200) {
+        successToast("login successful");
+        login(res.data);
+        router.push("/");
+      } else {
+        errorToast("unknown error");
       }
-      else if (res.status == 200) {
-        successToast("login successful")
-        login(res.data)
-        router.push("/")
-      } 
-      else {
-       errorToast("unknown error")
-      }       
-    },1000)
-
+    }, 1000);
   };
 
   return (
-    <section className={`flex flex-col gap-y-10 items-center bg-[#F7FAFC] lg:bg-white ` }>
+    <section
+      className={`flex flex-col gap-y-10 items-center bg-[#F7FAFC] lg:bg-white `}
+    >
       {/*actual body*/}
       <div className="relative flex flex-col mb-20 lg:mb-0 gap-y-4 lg:gap-y-3 w-11/12 max-w-md lg:w-full lg:max-w-full">
         {/*page header and back button for smaller device*/}
@@ -78,7 +71,6 @@ const LoginForm= () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-y-3 mx-2 lg:mx-0"
         >
-         
           {/*email form input*/}
           <div className="flex flex-col">
             <label
@@ -98,7 +90,7 @@ const LoginForm= () => {
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "email tidak valid",
-                }
+                },
               })}
               onKeyUp={() => {
                 trigger("email");
@@ -148,7 +140,8 @@ const LoginForm= () => {
                 "w-full lg:w-auto cursor-pointer text-white text-base p-6 py-3 rounded-md transition-all duration-200 shadow-lg" +
                 (!isDirty || !isValid || isLoading
                   ? " bg-gray-400"
-                  : " bg-[#30b465] hover:bg-[#27884e]") +  (isLoading ? ' cursor-wait' : "")
+                  : " bg-[#30b465] hover:bg-[#27884e]") +
+                (isLoading ? " cursor-wait" : "")
               }
             >
               login

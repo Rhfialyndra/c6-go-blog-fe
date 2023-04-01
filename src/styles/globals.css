@@ -4,7 +4,7 @@
 
 html,
 body {
-  background-color : white;
+  background-color: white;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -21,43 +21,34 @@ a {
 }
 
 .bg-dark-blue {
-  background-color : hsl(218, 23%, 16%);
+  background-color: hsl(218, 23%, 16%);
 }
 
 .bg-grayish-darkblue {
-  background-color : hsl(217, 19%, 24%)
+  background-color: hsl(217, 19%, 24%);
 }
 
 .light-cyan {
-  color : hsl(193, 38%, 86%);
+  color: hsl(193, 38%, 86%);
 }
 
 .min-h-72 {
-
-  min-height : 18rem;
-
+  min-height: 18rem;
 }
 
 .neon-green {
-
-  color : hsl(150, 100%, 66%);
-
+  color: hsl(150, 100%, 66%);
 }
 .bg-neon-green {
-
-  background-color : hsl(150, 100%, 66%);
-
+  background-color: hsl(150, 100%, 66%);
 }
 
 .wide-spacing {
-
-  letter-spacing : 0.3em
+  letter-spacing: 0.3em;
 }
 
 .green-shadow:hover {
-
-  box-shadow : 0 0 10px  hsl(150, 100%, 66%);
-
+  box-shadow: 0 0 10px hsl(150, 100%, 66%);
 }
 
 .loader-circle-4 {
@@ -87,15 +78,13 @@ a {
 }
 @keyframes spinnerOne {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 .noSelect {
-
-  --user-select : none;
-
+  --user-select: none;
 }

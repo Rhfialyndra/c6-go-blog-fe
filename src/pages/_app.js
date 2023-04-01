@@ -6,13 +6,10 @@ import { Toaster } from "react-hot-toast";
 function GoBlog({ Component, pageProps }) {
   return (
     <UserAuthContextProvider>
-      
-    <Layout>
-
-      <Component {...pageProps} />
-      <Toaster position="bottom-center"/>
-    </Layout>
-    
+      <Layout>
+        <Component {...pageProps} />
+        <Toaster position="bottom-center" />
+      </Layout>
     </UserAuthContextProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { createContext, useState} from 'react';
+import { createContext, useState } from "react";
 
 //interface UserAuthContext {
 //  user: User | null;
@@ -10,15 +10,14 @@ export const UserAuthContext = createContext({
   setUser: () => {},
 });
 
-const UserAuthContextProvider = ({children}) =>{
+const UserAuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState({});
 
-  const [user, setUser] = useState({})
-  
-  return <UserAuthContext.Provider
-  value={{user, setUser}}>
-    {children}
-  </UserAuthContext.Provider>
-}
-
+  return (
+    <UserAuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserAuthContext.Provider>
+  );
+};
 
 export default UserAuthContextProvider;

@@ -1,13 +1,11 @@
-
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { errorToast,successToast } from "../../../utils/toast";
+import { errorToast, successToast } from "../../../utils/toast";
 import { IoArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
-import {registerAccount} from "../../../queries/auth/register";
+import { registerAccount } from "../../../queries/auth/register";
 
-const RegisterForm= () => {
-
+const RegisterForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,46 +18,50 @@ const RegisterForm= () => {
     mode: "onChange",
     reValidateMode: "onBlur", //validate whenever user click outside of input field
     defaultValues: {
-      username :'',
-      fullname : '',
-      email : '',
-      gender : '',
-      password : '',
-      birthdate : '',
+      username: "",
+      fullname: "",
+      email: "",
+      gender: "",
+      password: "",
+      birthdate: "",
     },
   });
 
-  
   const onSubmit = async (data) => {
-
-    setIsLoading(true)
-    const {username, fullname, birthdate, gender, email, password} = data;
+    setIsLoading(true);
+    const { username, fullname, birthdate, gender, email, password } = data;
 
     const [year, month, date] = birthdate.split("-");
     let cleanString = date + "/" + month + "/" + year;
-    console.log(data, cleanString)
+    console.log(data, cleanString);
 
-    const res = await registerAccount(username, fullname, email, gender, birthdate, password);
-    console.log(res)
+    const res = await registerAccount(
+      username,
+      fullname,
+      email,
+      gender,
+      birthdate,
+      password
+    );
+    console.log(res);
 
-    setTimeout( () => {
-
-      setIsLoading(false)
-      if (res.status >= 400){
-        errorToast(res.message)
+    setTimeout(() => {
+      setIsLoading(false);
+      if (res.status >= 400) {
+        errorToast(res.message);
+      } else if (res.status == 200) {
+        successToast("your account has been created");
+        router.push("/auth/login");
+      } else {
+        errorToast("unknown error");
       }
-      else if (res.status == 200) {
-        successToast("your account has been created")
-        router.push("/auth/login")
-      } 
-      else {
-       errorToast("unknown error")
-      }       
-    },1000)
+    }, 1000);
   };
 
   return (
-    <section className={`flex flex-col gap-y-10 items-center bg-[#F7FAFC] lg:bg-white ` }>
+    <section
+      className={`flex flex-col gap-y-10 items-center bg-[#F7FAFC] lg:bg-white `}
+    >
       {/*actual body*/}
       <div className="relative flex flex-col mb-20 lg:mb-0 gap-y-4 lg:gap-y-3 w-11/12 max-w-md lg:w-full lg:max-w-full">
         {/*page header and back button for smaller device*/}
@@ -151,59 +153,59 @@ const RegisterForm= () => {
 
           <div className=" flex flex-col lg:flex-row w-full gap-y-4 lg:gap-x-4">
             <div className="flex flex-col lg:w-1/2">
-            <label
-              htmlFor="email"
-              className="font-semibold text-[16px] text-gray-600"
-            >
-              Tanggal Lahir <span className="text-red-600">&#42;</span>
-            </label>
-            <input
-              type="date"
-              className={
-                "input w-full h-[40px] rounded-[3px] focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600" +
-                (errors.birthdate && " border-red-600")
-              }
-              {...register("birthdate", {
-                required: "Data ini wajib diisi",
-              })}
-              onKeyUp={() => {
-                trigger("birthdate");
-              }}
-            ></input>
+              <label
+                htmlFor="email"
+                className="font-semibold text-[16px] text-gray-600"
+              >
+                Tanggal Lahir <span className="text-red-600">&#42;</span>
+              </label>
+              <input
+                type="date"
+                className={
+                  "input w-full h-[40px] rounded-[3px] focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600" +
+                  (errors.birthdate && " border-red-600")
+                }
+                {...register("birthdate", {
+                  required: "Data ini wajib diisi",
+                })}
+                onKeyUp={() => {
+                  trigger("birthdate");
+                }}
+              ></input>
 
-            {errors.birthdate && (
-              <span className="text-[13px] text-red-600 mt-1">
-                {"*" + errors.birthdate?.message}
-              </span>
-            )}
+              {errors.birthdate && (
+                <span className="text-[13px] text-red-600 mt-1">
+                  {"*" + errors.birthdate?.message}
+                </span>
+              )}
             </div>
 
             {/*fullname form input*/}
             <div className="flex flex-col lg:w-1/2">
-            <label
-              htmlFor="gender"
-              className="font-semibold text-[16px] text-gray-600"
-            >
-              Jenis Kelamin
-            </label>
-            <select
-              className={
-                "input h-[40px] rounded-[3px] focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600" +
-                (errors.gender && " border-red-600")
-              }
-              {...register("gender", {
-                required: "Data ini wajib diisi",
-              })}
-            >
-              <option value="MALE">Pria</option>
-              <option value="FEMALE">Wanita</option>
-            </select>
+              <label
+                htmlFor="gender"
+                className="font-semibold text-[16px] text-gray-600"
+              >
+                Jenis Kelamin
+              </label>
+              <select
+                className={
+                  "input h-[40px] rounded-[3px] focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600" +
+                  (errors.gender && " border-red-600")
+                }
+                {...register("gender", {
+                  required: "Data ini wajib diisi",
+                })}
+              >
+                <option value="MALE">Pria</option>
+                <option value="FEMALE">Wanita</option>
+              </select>
 
-            {errors.gender && (
-              <span className="text-[13px] text-red-600 mt-1">
-                {"*" + errors.gender?.message}
-              </span>
-            )}
+              {errors.gender && (
+                <span className="text-[13px] text-red-600 mt-1">
+                  {"*" + errors.gender?.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -226,7 +228,7 @@ const RegisterForm= () => {
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "email tidak valid",
-                }
+                },
               })}
               onKeyUp={() => {
                 trigger("email");
@@ -258,14 +260,14 @@ const RegisterForm= () => {
                   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
                   message: "password harus mengandung huruf dan angka!",
                 },
-                maxLength : {
-                    value : 20,
-                    message : 'panjang password harus diantara 8 - 20 karakter!'
+                maxLength: {
+                  value: 20,
+                  message: "panjang password harus diantara 8 - 20 karakter!",
                 },
-                minLength : {
-                    value : 8,
-                    message : 'panjang password harus diantara 8 - 20 karakter!'
-                }
+                minLength: {
+                  value: 8,
+                  message: "panjang password harus diantara 8 - 20 karakter!",
+                },
               })}
               onKeyUp={() => {
                 trigger("password");
@@ -288,7 +290,8 @@ const RegisterForm= () => {
                 "w-full lg:w-auto cursor-pointer text-white text-base p-6 py-3 rounded-md transition-all duration-200 shadow-lg" +
                 (!isDirty || !isValid || isLoading
                   ? " bg-gray-400"
-                  : " bg-[#30b465] hover:bg-[#27884e]") + (isLoading ? ' cursor-wait' : "")
+                  : " bg-[#30b465] hover:bg-[#27884e]") +
+                (isLoading ? " cursor-wait" : "")
               }
             >
               register
