@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 const Login = () => {
     return<main className="max-w-screen min-h-screen w-screen bg-white flex items-center justify-center">
             <LoginForm/>
-            <Toaster position="bottom-center"/>
+            
     </main>
 }
 export default Login;
