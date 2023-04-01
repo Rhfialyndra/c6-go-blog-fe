@@ -1,19 +1,15 @@
 import queryClient from "../../utils/QueryClient";
 
-export async function registerAccount(username, fullname, email, gender, birthdate, password) {
+export async function loginUser(email, password) {
     
-    const res = queryClient.post( '/register', {
-            username : username,
-            fullname : fullname, 
+    const res = queryClient.post( '/login', { 
             email : email,
-            gender : gender, 
-            birthdate : birthdate,      
             password : password
         }).then( response => {
-            //console.log(response)
+            console.log(response)
             return response;
         }).catch( error => {
-            //console.log(error)
+            console.log(error)
             return {
                 status : error.response.status,
                 message : error.response.data.message ?? "",
