@@ -1,14 +1,19 @@
 
-import { useContext, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import {  useState } from "react";
+import { useForm } from "react-hook-form";
+import { loginUser } from "../../../queries/auth/login";
 import toast from "react-hot-toast";
 import { IoArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
+import { useAuth } from "../../hooks/useAuth";
+import { errorToast, successToast } from "../../../utils/toast";
 
 const LoginForm= () => {
 
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const {login} = useAuth()
+
 
   const {
     register,
@@ -30,36 +35,23 @@ const LoginForm= () => {
     setIsLoading(true)
     const {email, password} = data;
 
-    //const res = await registerAccount(username, fullname, email, gender, birthdate, password);
+    const res = await loginUser(email, password)
 
     setTimeout( () => {
 
       setIsLoading(false)
-      toast.error("incorrect password or username", {
-        style: {
-          border: '1px solid #ff5b24',
-          padding: '16px',
-          color: '#ff5b24',
-        },
-        iconTheme: {
-          primary: '#ff5b24',
-          secondary: '#FFFAEE',
-        },
-      })
-
-      toast.success("login successfull", {
-        style: {
-          border: '1px solid #089c0d',
-          padding: '16px',
-          color: '#089c0d',
-        },
-        iconTheme: {
-          primary: '#089c0d',
-          secondary: '#FFFAEE',
-        },
-      })
-    },2000)
-    // empty all of the input fields
+      if (res.status >= 400){
+        errorToast(res.message)
+      }
+      else if (res.status == 200) {
+        successToast("login successful")
+        login(res.data)
+        router.push("/")
+      } 
+      else {
+       errorToast("unknown error")
+      }       
+    },1000)
 
   };
 

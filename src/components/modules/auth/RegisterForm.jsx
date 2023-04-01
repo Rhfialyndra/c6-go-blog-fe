@@ -1,7 +1,7 @@
 
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { errorToast,successToast } from "../../../utils/toast";
 import { IoArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
 import {registerAccount} from "../../../queries/auth/register";
@@ -39,35 +39,23 @@ const RegisterForm= () => {
     let cleanString = date + "/" + month + "/" + year;
     console.log(data, cleanString)
 
-    //const res = await registerAccount(username, fullname, email, gender, birthdate, password);
+    const res = await registerAccount(username, fullname, email, gender, birthdate, password);
+    console.log(res)
 
     setTimeout( () => {
 
       setIsLoading(false)
-      toast.error("incorrect password or username", {
-        style: {
-          border: '1px solid #ff5b24',
-          padding: '16px',
-          color: '#ff5b24',
-        },
-        iconTheme: {
-          primary: '#ff5b24',
-          secondary: '#FFFAEE',
-        },
-      })
-
-      toast.success("login successfull", {
-        style: {
-          border: '1px solid #089c0d',
-          padding: '16px',
-          color: '#089c0d',
-        },
-        iconTheme: {
-          primary: '#089c0d',
-          secondary: '#FFFAEE',
-        },
-      })
-    },2000)
+      if (res.status >= 400){
+        errorToast(res.message)
+      }
+      else if (res.status == 200) {
+        successToast("your account has been created")
+        router.push("/auth/login")
+      } 
+      else {
+       errorToast("unknown error")
+      }       
+    },1000)
   };
 
   return (
