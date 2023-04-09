@@ -1,4 +1,4 @@
-import queryClient from "../../utils/authApiClient";
+import authApiClient from "../../utils/authApiClient";
 
 export async function registerAccount(
   username,
@@ -8,7 +8,7 @@ export async function registerAccount(
   birthdate,
   password
 ) {
-  const res = queryClient
+  const res = authApiClient
     .post("/register", {
       username: username,
       fullname: fullname,
