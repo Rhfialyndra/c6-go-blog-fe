@@ -5,6 +5,7 @@ import styles from '../../../styles/Post.module.css';
 const posts = [
   {
     author: 'John Smith',
+    username: '@johnsmith',
     profileImg: '/assets/example.jpg',
     postImg: '/assets/example.jpg',
     title: 'Beautiful sunset',
@@ -14,6 +15,7 @@ const posts = [
   },
   {
     author: 'John Smith',
+    username: '@johnsmith',
     profileImg: '/assets/example.jpg',
     postImg: '/assets/example.jpg',
     title: 'Beautiful sunset',
@@ -24,7 +26,7 @@ const posts = [
   // More posts
 ];
 
-function Post({ author, profileImg, postImg, title, date, likes, comments }) {
+function Post({ author, username, profileImg, postImg, title, date, likes, comments }) {
   const [numLikes, setNumLikes] = useState(likes); // add state for numLikes
   const [liked, setLiked] = useState(false); // add state for liked status
 
@@ -44,14 +46,15 @@ function Post({ author, profileImg, postImg, title, date, likes, comments }) {
       <div className={styles['post-header']}>
         <img className={styles['profile-img']} src={profileImg} alt="Author Profile" />
         <div className={styles['post-author']}>
-          <h2 className={styles['post-author-name']}>{author}</h2>
-          <p className={styles['post-date']}>{date}</p>
+          <h1 className={styles['post-author-name']}>{author}</h1>
+          <p className={styles['post-username']}>{username}</p>
         </div>
       </div>
       <div className={styles.post}>
         <img className={styles['post-img']} src={postImg} alt="Post Image" />
         <div className={styles['post-footer']}>
           <h3 className={styles['post-title']}>{title}</h3>
+          <p className={styles['post-date']}>{date}</p>
           <div className={styles['post-actions']}>
             <button className={`${styles[liked ? 'like-btn' : 'unlike-btn']}`} onClick={toggleLike}>
               <RiHeartLine className={styles['like-icon']} /> {numLikes}
