@@ -10,13 +10,14 @@ const Navbar = () => {
         </a>
         <div className="search-group rounded-lg border border-black border-solid overflow-hidden">
             <div className="form-control bg-white border-none flex items-center">
-                <input type="text" placeholder="Search" className="input input-bordered bg-white border-none flex-grow h-8" />
+                <input type="text" placeholder="Search" className="input input-bordered bg-white border-none flex-grow h-10" />
             </div>
             <button className="bg-cyan-500 p-2 hover:bg-cyan-600">
-                <FaSearch className="text-white text-base h-full" />
+                <FaSearch className="text-white text-base h-6" />
             </button>
         </div>
         <div className="right-content">
+            {/* Kalo udah login */}
             {/* <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar border border-black border-solid">
                     <div className="w-10 rounded-full">
@@ -33,8 +34,13 @@ const Navbar = () => {
                 </ul>
             </div> */}
             <div className="flex justify-between gap-4">
-                <button className="bg-cyan-500 text-white rounded px-4 py-2 hover:bg-cyan-600 transition-colors">Login</button>
-                <button className="bg-cyan-500 text-white rounded px-4 py-2 hover:bg-cyan-600 transition-colors">Sign up</button>
+                <button className="bg-cyan-500 text-white rounded px-4 py-2 hover:bg-cyan-600 transition-colors" style={{fontSize: "1.2rem"}}>
+                Login
+                </button>
+
+                <button className="bg-cyan-500 text-white rounded px-4 py-2 hover:bg-cyan-600 transition-colors" style={{fontSize: "1.2rem"}}>
+                Sign up
+                </button>
             </div>
         </div>
       </div>

@@ -1,16 +1,23 @@
+import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { FaBell } from 'react-icons/fa';
 import { FaFileAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return(
-    <div class="wrapper">
+    <div class={`wrapper ${isOpen ? 'open' : ''}`}>
         <div class="section">
             <div class="top_navbar">
                 <div class="hamburger">
-                    <a href="#">
+                    <button href="#">
                         <i class="fas fa-bars"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         
@@ -39,7 +46,9 @@ const Sidebar = () => {
             </ul>
             
         </div>
-
+        <button className="toggle-sidebar-button" onClick={toggleSidebar}>
+            {isOpen ? 'Close' : 'Open'}
+        </button>
     </div>)
 }
 
