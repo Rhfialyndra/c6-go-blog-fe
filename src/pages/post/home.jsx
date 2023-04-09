@@ -1,5 +1,6 @@
 import Navbar from "@components/layout/Navbar";
 import Sidebar from "@components/layout/Sidebar";
+import Post from "@components/modules/post/Post";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <div class="content">
         <h2>Welcome to my page!</h2>
         <p>This is the main content area.</p>
+        <Post />
       </div>
     </div>
   );
