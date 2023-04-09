@@ -7,7 +7,7 @@ const authApiClient = axios.create({
   },
 });
 
-queryClient.interceptors.request.use(
+authApiClient.interceptors.request.use(
   (config) => {
     // Do something before sending the request, e.g. add an authorization header
     config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
@@ -19,7 +19,7 @@ queryClient.interceptors.request.use(
   }
 );
 
-queryClient.interceptors.response.use(
+authApiClient.interceptors.response.use(
   (response) => {
     // Do something with the response data
     return response;
