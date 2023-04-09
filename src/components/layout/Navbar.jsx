@@ -1,51 +1,70 @@
-import { FaSearch } from 'react-icons/fa';
-import styles from '../../styles/Post.module.css';
+import SearchBar from "@components/elements/SearchBar";
+import LinkedButton from "../elements/LinkedButton";
+import { useUser } from "../hooks/useUser";
 
 const Navbar = () => {
-   return(
-    <div>
-      <div className="navbar bg-white flex justify-between items-center">
-        <a href="../post/home">
-            <img src="/assets/logo.jpg" alt="Logo Go-Blog"/>
-        </a>
-        <div className="search-group rounded-lg border border-black border-solid overflow-hidden">
-            <div className="form-control bg-white border-none flex items-center">
-                <input type="text" placeholder="Search" className="input input-bordered bg-white border-none flex-grow h-10" />
-            </div>
-            <button className="bg-cyan-500 p-2 hover:bg-cyan-600">
-                <FaSearch className="text-white text-base h-6" />
-            </button>
-        </div>
-        <div className="right-content">
-            {/* Kalo udah login */}
-            {/* <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar border border-black border-solid">
-                    <div className="w-10 rounded-full">
-                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                    </div>
-                </label>
-                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                    <li>
-                    <a className="justify-between">
-                        Profile
-                    </a>
-                    </li>
-                    <li><a>Logout</a></li>
-                </ul>
-            </div> */}
-            <div className="flex justify-between gap-4">
-                <button className="bg-cyan-500 text-white rounded px-4 py-2 hover:bg-cyan-600 transition-colors" style={{fontSize: "1.2rem"}}>
-                Login
-                </button>
+  const { user } = useUser();
+  return (
+    <div className="w-full navbar bg-white  drop-shadow-lg justify-between">
+      <div className="flex-none lg:hidden">
+        <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
+          <SidebarSVG/>
+        </label>
+      </div>
 
-                <button className="bg-cyan-500 text-white rounded px-4 py-2 hover:bg-cyan-600 transition-colors" style={{fontSize: "1.2rem"}}>
-                Sign up
-                </button>
+      <a href="../post/home">
+        <img src="/assets/logo.jpg" alt="Logo Go-Blog" />
+      </a>
+
+      <div className="md:w-1/2 lg:w-1/3">
+        <SearchBar />
+      </div>
+
+      <div className="flex-none hidden lg:block">
+        <ul className="menu menu-horizontal text-black gap-x-3 justify-end">
+          {user ? (
+            <div className="dropdown dropdown-hover dropdown-end">
+              <label tabIndex={0} className="btn m-1">
+                Hover
+              </label>
+              <ul
+                tabIndex={0}
+                className="bg-white dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2"
+              >
+                <li>
+                  <a>Item 1</a>
+                </li>
+                <li>
+                  <a>Item 2</a>
+                </li>
+              </ul>
             </div>
-        </div>
+          ) : (
+            <>
+              <LinkedButton link={"/auth/login"} title={"login"} />
+              <LinkedButton link={"/auth/register"} title={"register"} />
+            </>
+          )}
+        </ul>
       </div>
     </div>
-  )
+  );
+};
+
+const SidebarSVG = () => {
+    return <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    className="inline-block w-6 h-6 stroke-current"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M4 6h16M4 12h16M4 18h16"
+    ></path>
+  </svg>
 }
 
 export default Navbar;
