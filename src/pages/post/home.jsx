@@ -11,10 +11,12 @@ const Home = () => {
       <div className="sidebar" style={{backgroundColor: "#eee", width: "200px", height: "calc(100vh - 50px)", float: "left"}}>
         <Sidebar />
       </div>
-      <div class="content">
-        <h2>Welcome to my page!</h2>
-        <p>This is the main content area.</p>
-        <Post />
+      <div class="content" style={{ margin: '50px'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px' }}>
+          <div style={{ flex: 2 }}>
+            <Post />
+          </div>
+        </div>
       </div>
     </div>
   );

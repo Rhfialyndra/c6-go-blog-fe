@@ -65,6 +65,7 @@
   }
   
   .like-btn,
+  .unlike-btn,
   .comment-btn {
     display: flex;
     align-items: center;
@@ -76,20 +77,28 @@
     }
 
     .like-btn:hover,
+    .unlike-btn:hover,
     .comment-btn:hover {
     color: #1da1f2;
     }
 
-    .like-btn {
+    .like-btn,
+    .unlike-btn {
     margin-right: 1rem;
     }
 
-    .like-btn svg,
+    .like-btn svg {
+      margin-right: 0.5rem;
+      fill: red;
+    }
+    
+    .unlike-btn svg,
     .comment-btn svg {
     margin-right: 0.5rem;
     }
 
     .like-btn:hover svg,
+    .unlike-btn:hover svg,
     .comment-btn:hover svg {
     fill: #1da1f2;
     }

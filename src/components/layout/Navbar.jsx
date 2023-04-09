@@ -8,7 +8,7 @@ const Navbar = () => {
             <a className="btn btn-ghost normal-case text-xl">Logo go-blog</a>
         </div> */}
         <a href="../post/home">
-            <img src="...\go-blog-frontend\src\utils\logo.jpg" alt="Logo Go-Blog"/>
+            <img src="/assets/logo.jpg" alt="Logo Go-Blog"/>
         </a>
         <div className="centered-content">
             <div className="form-control bg-white border border-black border-solid rounded-lg flex items-center">
