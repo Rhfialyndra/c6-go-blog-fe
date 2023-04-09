@@ -8,12 +8,21 @@ const Home = () => {
     // <main className="flex-1 max-w-screen maax-w-screen bg-white flex items-center justify-center">
     <div className="w-screen bg-slate-500 items-center justify-center">
       <Navbar />
-      <div className="sidebar" style={{backgroundColor: "#eee", width: "200px", height: "calc(100vh - 50px)", float: "left"}}>
+      {/* <div className="sidebar" style={{backgroundColor: "#eee", width: "200px", height: "calc(100vh - 50px)", float: "left"}}>
         <Sidebar />
       </div>
-      <div class="content" style={{ margin: '50px'}}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px' }}>
-          <div style={{ flex: 2 }}>
+      <div className="content" style={{ padding: '50px'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px',
+                      background:'white'}}>
+            <Post />
+        </div>
+      </div> */}
+      <div style={{ display: 'flex'}}>
+        <div className="sidebar" style={{ backgroundColor: "#eee", width: "calc(20vw - 50px)", height: "calc(100vh)" }}>
+          <Sidebar />
+        </div>
+        <div className="content" style={{ padding: '50px', width: "calc(80vw)"}}>
+          <div className="bg-white">
             <Post />
           </div>
         </div>

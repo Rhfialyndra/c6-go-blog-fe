@@ -1,21 +1,19 @@
 import { FaSearch } from 'react-icons/fa';
+import styles from '../../styles/Post.module.css';
 
 const Navbar = () => {
    return(
     <div>
-      <div className="navbar bg-slate-300 flex justify-between items-center">
-        {/* <div className="left-content">
-            <a className="btn btn-ghost normal-case text-xl">Logo go-blog</a>
-        </div> */}
+      <div className="navbar bg-white flex justify-between items-center">
         <a href="../post/home">
             <img src="/assets/logo.jpg" alt="Logo Go-Blog"/>
         </a>
-        <div className="centered-content">
-            <div className="form-control bg-white border border-black border-solid rounded-lg flex items-center">
-                <input type="text" placeholder="Search" className="input input-bordered bg-white border-none flex-grow" />
+        <div className="search-group rounded-lg border border-black border-solid overflow-hidden">
+            <div className="form-control bg-white border-none flex items-center">
+                <input type="text" placeholder="Search" className="input input-bordered bg-white border-none flex-grow h-8" />
             </div>
             <button className="bg-cyan-500 p-2 hover:bg-cyan-600">
-                    <FaSearch className="text-white text-base" />
+                <FaSearch className="text-white text-base h-full" />
             </button>
         </div>
         <div className="right-content">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiHeartLine, RiChat1Line } from 'react-icons/ri';
-import styles from './style.module.css';
+import styles from '../../../styles/Post.module.css';
 
 const posts = [
   {
@@ -39,7 +39,8 @@ function Post({ author, profileImg, postImg, title, date, likes, comments }) {
   };
 
   return (
-    <div className={styles.post}>
+    
+    <div className='p-8'>
       <div className={styles['post-header']}>
         <img className={styles['profile-img']} src={profileImg} alt="Author Profile" />
         <div className={styles['post-author']}>
@@ -47,16 +48,18 @@ function Post({ author, profileImg, postImg, title, date, likes, comments }) {
           <p className={styles['post-date']}>{date}</p>
         </div>
       </div>
-      <img className={styles['post-img']} src={postImg} alt="Post Image" />
-      <div className={styles['post-footer']}>
-        <h3 className={styles['post-title']}>{title}</h3>
-        <div className={styles['post-actions']}>
-          <button className={`${styles[liked ? 'like-btn' : 'unlike-btn']}`} onClick={toggleLike}>
-            <RiHeartLine className={styles['like-icon']} /> {numLikes}
-          </button>
-          <button className={styles['comment-btn']}>
-            <RiChat1Line /> {comments}
-          </button>
+      <div className={styles.post}>
+        <img className={styles['post-img']} src={postImg} alt="Post Image" />
+        <div className={styles['post-footer']}>
+          <h3 className={styles['post-title']}>{title}</h3>
+          <div className={styles['post-actions']}>
+            <button className={`${styles[liked ? 'like-btn' : 'unlike-btn']}`} onClick={toggleLike}>
+              <RiHeartLine className={styles['like-icon']} /> {numLikes}
+            </button>
+            <button className={styles['comment-btn']}>
+              <RiChat1Line /> {comments}
+            </button>
+          </div>
         </div>
       </div>
     </div>

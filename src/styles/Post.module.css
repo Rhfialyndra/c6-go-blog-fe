@@ -17,8 +17,9 @@
   .post {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 0.25rem;
+    border-radius: 0.9rem;
     margin-bottom: 1rem;
+    overflow: hidden;
   }
   
   .post-header {
