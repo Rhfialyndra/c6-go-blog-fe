@@ -4,14 +4,9 @@ import { FaBell } from 'react-icons/fa';
 import { FaFileAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
 
   return(
-    <div className={`wrapper ${isOpen ? 'open' : ''}`}>
+    <div className='wrapper'>
         <div className="section">
             <div className="top_navbar">
                 <div className="hamburger">
@@ -46,9 +41,6 @@ const Sidebar = () => {
             </ul>
             
         </div>
-        <button className="toggle-sidebar-button" onClick={toggleSidebar}>
-            {isOpen ? 'Close' : 'Open'}
-        </button>
     </div>)
 }
 
