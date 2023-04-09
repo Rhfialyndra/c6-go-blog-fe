@@ -1,8 +1,8 @@
-import queryClient from "../../utils/QueryClient";
+import authApiClient from "../../utils/authApiClient";
 
 export async function loginUser(email, password) {
-  const res = queryClient
-    .post("/login", {
+  const res = authApiClient
+      .post("/login", {
       email: email,
       password: password,
     })

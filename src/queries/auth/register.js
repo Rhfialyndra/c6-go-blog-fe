@@ -1,4 +1,4 @@
-import queryClient from "../../utils/QueryClient";
+import queryClient from "../../utils/authApiClient";
 
 export async function registerAccount(
   username,
