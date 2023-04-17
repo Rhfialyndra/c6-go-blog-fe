@@ -1,0 +1,23 @@
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 3%;
+}
+
+.comment-content {
+    margin-right: 10%;
+    margin-left: 1%;
+    margin-top: 2%;
+}
+
+.comment-time {
+    opacity: 50%;
+    margin-left: 2%;
+}
