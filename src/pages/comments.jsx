@@ -77,21 +77,7 @@ function PostComments() {
           <Post key={post.title} {...post} />
         </div>
         <div className={styles.col}>
-          <div style={{ height: '480px', overflow: 'auto' }}>
-            <Comment />
-          </div>
-          <label>
-            <input type="text" name="comment" placeholder="comment"
-              style={{
-                border: '1.5px solid aqua',
-                borderColor: 'aqua',
-                borderRadius: '0.5rem',
-                height: '35px',
-                marginTop: '4%',
-                padding: '10px',
-                width: '400px'
-              }} />
-          </label>
+          <Comment />
         </div>
       </div>
     </div>
