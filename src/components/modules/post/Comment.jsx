@@ -96,7 +96,7 @@ export default function Comment() {
     return (
       <form onSubmit={handleAddComment}>
         <input type="text" value={newComment} onChange={handleChange} placeholder='Your comment' ref={inputRef} className={styles['comment-form']} />
-        <button type="submit" class="bg-cyan-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Add</button>
+        <button type="submit" className="bg-cyan-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Add</button>
       </form>
     )
   }
