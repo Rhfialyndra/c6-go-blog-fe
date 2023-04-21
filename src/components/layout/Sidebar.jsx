@@ -88,6 +88,45 @@ const Sidebar = () => {
             <button type="submit" className={styles2.createButton}>
               Create
             </button>
+
+            <div>
+                <div className="flex justify-center items-center py-6">
+                    <button
+                        className={`${styles.createPostButton} create-post-button bg-slate-400 text-white rounded-full p-3 hover:bg-slate-500 transition-colors flex items-center`}
+                        style={{ fontSize: '1.15rem'}}
+                        onClick={handleCreatePostClick}
+                    >
+                        <FaPlus className="mr-2" /> Create Post
+                    </button>
+                </div>
+                <hr className={styles.separator} style={{ borderWidth: "4px", borderColor: "darkgray" }}></hr>
+                <ul className={styles.sidebarList}>
+                    <li>
+                    <a
+                        href="../home"
+                        className={`${styles.sidebarLink} ${activeButton === 'Posts' ? styles.active : ''} flex items-center px-2 py-5`} // Modified
+                        onClick={() => setActiveButton('Posts')} // Modified
+                    >
+                        <FaFileAlt className={`${styles.icon} mr-2`} />
+                        <div className={styles.item}>Posts</div>
+                    </a>
+                    </li>
+                    <li>
+                    <a
+                        href="../notification"
+                        className={`${styles.sidebarLink} ${activeButton === 'Notifications' ? styles.active : ''} flex items-center px-2 py-5`} // Modified
+                        onClick={() => setActiveButton('Notifications')} // Modified
+                    >
+                        <FaBell className={`${styles.icon} mr-2`} />
+                        <div className={styles.item}>Notifications</div>
+                    </a>
+                    </li>
+                </ul>
+            </div>
+            <Modal show={modalVisible} onClose={handleModalClose}>
+            <button className={styles2.closeButton} onClick={handleModalClose}>
+                <FaTimes />
+
             <button
               type="button"
               className={styles2.cancelButton}
