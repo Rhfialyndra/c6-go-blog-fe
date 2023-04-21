@@ -3,7 +3,7 @@ import Post from "@components/modules/post/Post";
 import { useRouter } from "next/router";
 import { useUser } from "../components/hooks/useUser";
 import { postRepository } from "../db/post";
-import styles from '../styles/Post.module.css';
+import styles from "../styles/Post.module.css";
 
 const Home = () => {
   const router = useRouter();
@@ -32,13 +32,11 @@ const Home = () => {
         >
           <div className="bg-white">
             <div className={styles.container}>
-              
-                <div className={styles.col}>
-                  {postRepository
-                    .map((post) => (
-                      <Post key={post.title} {...post} />
-                    ))}
-                </div>
+              <div className={styles.col}>
+                {postRepository.map((post) => (
+                  <Post key={post.title} {...post} />
+                ))}
+              </div>
             </div>
           </div>
         </div>

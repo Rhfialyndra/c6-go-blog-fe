@@ -1,8 +1,8 @@
-import styles from '@styles/Comment.module.css';
-import ReplyTile from '../../elements/ReplyTile';
-import { useState, useRef, useEffect } from 'react';
-import ReplyInput from '../../elements/ReplyInput';
-import { commentRepository } from '../../../db/comment';
+import styles from "@styles/Comment.module.css";
+import ReplyTile from "../../elements/ReplyTile";
+import { useState, useRef, useEffect } from "react";
+import ReplyInput from "../../elements/ReplyInput";
+import { commentRepository } from "../../../db/comment";
 
 /* fetch comments
 async function fetchCommentsById(postId) {
@@ -16,18 +16,14 @@ async function fetchCommentsById(postId) {
 
 export default function CommentSection() {
   const [comments, setComments] = useState(commentRepository);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   // const inputRef = useRef(null);
   // useEffect(() => {
   //   inputRef.current.focus();
   // }, [newComment]);
 
   function DiplayComments() {
-    return (
-      comments.map(comment => (
-        <ReplyTile comment={comment}/>
-      ))
-    )
+    return comments.map((comment) => <ReplyTile comment={comment} />);
   }
 
   // function handleAddComment(event) {
@@ -72,13 +68,12 @@ export default function CommentSection() {
 
   return (
     <div>
-      <div style={{ height: '480px', overflow: 'auto' }}>
+      <div style={{ height: "480px", overflow: "auto" }}>
         <DiplayComments />
       </div>
       <div>
-
-        <ReplyInput/>
+        <ReplyInput />
       </div>
     </div>
-  )
+  );
 }

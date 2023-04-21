@@ -3,7 +3,7 @@ import Drawer from "./Drawer";
 const Layout = ({ children }) => {
   return (
     <Drawer>
-      <Navbar/>
+      <Navbar />
       <main>{children}</main>
     </Drawer>
   );
