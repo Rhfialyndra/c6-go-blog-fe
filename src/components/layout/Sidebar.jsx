@@ -48,7 +48,7 @@ const Sidebar = () => {
                     </li>
                     <li>
                     <a
-                        href="#"
+                        href="../notification"
                         className={`${styles.sidebarLink} ${activeButton === 'Notifications' ? styles.active : ''} flex items-center px-2 py-5`} // Modified
                         onClick={() => setActiveButton('Notifications')} // Modified
                     >
