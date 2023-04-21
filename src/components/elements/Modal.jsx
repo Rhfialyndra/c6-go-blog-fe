@@ -1,6 +1,6 @@
 // Modal.js
-import React from 'react';
-import styles from '../../styles/modal.module.css';
+import React from "react";
+import styles from "../../styles/modal.module.css";
 
 const Modal = ({ show, onClose, children }) => {
   if (!show) {
@@ -9,7 +9,7 @@ const Modal = ({ show, onClose, children }) => {
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
-      <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={styles.contentContainer}>{children}</div>
       </div>
     </div>

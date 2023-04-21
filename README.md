@@ -43,4 +43,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Go-Blog frontend mockup
+
 The mockup for our app is available inside the file "goblog_mockup.pdf"
