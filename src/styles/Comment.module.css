@@ -30,6 +30,7 @@
     margin-right: 4%;
     padding: 10px;
     width: 300px;
+    background: #EEE;
 }
 
 .comment-form:focus {

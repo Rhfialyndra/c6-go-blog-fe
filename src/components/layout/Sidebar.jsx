@@ -9,6 +9,7 @@ import Modal from '../elements/Modal';
 
 const Sidebar = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [activeButton, setActiveButton] = useState('Posts');
 
     const handleModalClose = () => {
         setModalVisible(false);
@@ -17,6 +18,7 @@ const Sidebar = () => {
     const handleCreatePostClick = () => {
         setModalVisible(true);
     };
+
     return (
         <div className={styles.sidebar} style={{ width: 'calc(20vw - 50px)', height: 'calc(100vh)' }}>
             <button href="#">
@@ -34,18 +36,26 @@ const Sidebar = () => {
                 </div>
                 <hr className={styles.separator} style={{ borderWidth: "4px", borderColor: "darkgray" }}></hr>
                 <ul className={styles.sidebarList}>
-                <li>
-                    <a href="#" className={`${styles.sidebarLink} ${styles.active} flex items-center px-2 py-5`}>
-                    <FaFileAlt className={`${styles.icon} mr-2`} />
-                    <div className={styles.item}>Posts</div>
+                    <li>
+                    <a
+                        href="../home"
+                        className={`${styles.sidebarLink} ${activeButton === 'Posts' ? styles.active : ''} flex items-center px-2 py-5`} // Modified
+                        onClick={() => setActiveButton('Posts')} // Modified
+                    >
+                        <FaFileAlt className={`${styles.icon} mr-2`} />
+                        <div className={styles.item}>Posts</div>
                     </a>
-                </li>
-                <li>
-                    <a href="#" className={`${styles.sidebarLink} ${styles.active} flex items-center px-2 py-5`}>
-                    <FaBell className={`${styles.icon} mr-2`} />
-                    <div className={styles.item}>Notifications</div>
+                    </li>
+                    <li>
+                    <a
+                        href="#"
+                        className={`${styles.sidebarLink} ${activeButton === 'Notifications' ? styles.active : ''} flex items-center px-2 py-5`} // Modified
+                        onClick={() => setActiveButton('Notifications')} // Modified
+                    >
+                        <FaBell className={`${styles.icon} mr-2`} />
+                        <div className={styles.item}>Notifications</div>
                     </a>
-                </li>
+                    </li>
                 </ul>
             </div>
             <Modal show={modalVisible} onClose={handleModalClose}>
