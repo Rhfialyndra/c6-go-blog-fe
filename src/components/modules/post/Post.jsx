@@ -2,32 +2,6 @@ import React, { useState } from 'react';
 import { RiHeartLine, RiChat1Line } from 'react-icons/ri';
 import styles from '../../../styles/Post.module.css';
 
-const posts = [
-  {
-    author: 'John Smith',
-    username: '@johnsmith',
-    profileImg: '/assets/example.jpg',
-    postImg: '/assets/example.jpg',
-    title: 'Beautiful sunset',
-    date: 'April 9, 2023',
-    likes: 10,
-    comments: 5,
-    mins_read: 5,
-  },
-  {
-    author: 'John Smith',
-    username: '@johnsmith',
-    profileImg: '/assets/example.jpg',
-    postImg: '/assets/example.jpg',
-    title: 'Beautiful sunset',
-    date: 'April 9, 2023',
-    likes: 10,
-    comments: 5,
-    mins_read: 5,
-  },
-  // More posts
-];
-
 function Post({ author, username, profileImg, postImg, title, date, likes, comments, mins_read }) {
   const [numLikes, setNumLikes] = useState(likes); // add state for numLikes
   const [liked, setLiked] = useState(false); // add state for liked status
@@ -86,23 +60,4 @@ function Post({ author, username, profileImg, postImg, title, date, likes, comme
   );
 }
 
-function PostList() {
-  return (
-    <div className={styles.container} >
-      <div className={styles.row}>
-        <div className={styles.col}>
-          {posts.slice(0, Math.ceil(posts.length / 2)).map(post => (
-            <Post key={post.title} {...post} />
-          ))}
-        </div>
-        <div className={styles.col}>
-          {posts.slice(Math.ceil(posts.length / 2)).map(post => (
-            <Post key={post.title} {...post} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default PostList;
+export default Post;
