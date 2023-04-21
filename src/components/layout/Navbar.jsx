@@ -5,7 +5,6 @@ import UserDropdown from "../elements/UserDropdown";
 
 const Navbar = () => {
   const { user } = useAuth();
-  console.log(user)
   return (
     // <div className="w-full navbar bg-white  drop-shadow-lg justify-between">
     <div className="w-full navbar flex justify-between items-center gap-3" style={{ position: "fixed", top: 0, left: 0, width: "100%", backgroundColor: "#fff", boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)", zIndex: 1000 }}>

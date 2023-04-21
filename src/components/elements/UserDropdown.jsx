@@ -1,8 +1,11 @@
 import Image from "next/image";
 import {BsChevronDown, BsFillPersonFill} from "react-icons/bs"
 import {ImExit} from "react-icons/im"
+import { useAuth } from "../hooks/useAuth";
 
 const UserDropdown = () => {
+
+    const {logout} = useAuth();
     return(
         <div className="dropdown dropdown-hover dropdown-end ">
               <label tabIndex={0} className=" flex items-center justify-between  gap-x-3 p-2 rounded-md cursor-pointer hover:bg-gray-200 transition-all duration-100">
@@ -34,7 +37,8 @@ const UserDropdown = () => {
                   </div>
                 </li>
                 <li>
-                <div className="w-full flex items-center text-red-600 hover:bg-gray-200 transition-all duration-100">
+                <div className="w-full flex items-center text-red-600 hover:bg-gray-200 transition-all duration-100"
+                onClick={() => logout()}>
                     <ImExit className="w-6 h-6 ml-1"/>
                     <p>logout</p>
                   </div>
