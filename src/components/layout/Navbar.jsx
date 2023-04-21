@@ -1,9 +1,10 @@
 import SearchBar from "@components/elements/SearchBar";
 import LinkedButton from "../elements/LinkedButton";
-import { useUser } from "../hooks/useUser";
+import { useAuth} from "../hooks/useAuth";
+import UserDropdown from "../elements/UserDropdown";
 
 const Navbar = () => {
-  const { user } = useUser();
+  const { user } = useAuth();
   return (
     // <div className="w-full navbar bg-white  drop-shadow-lg justify-between">
     <div className="w-full navbar flex justify-between items-center gap-3" style={{ position: "fixed", top: 0, left: 0, width: "100%", backgroundColor: "#fff", boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)", zIndex: 1000 }}>
@@ -24,22 +25,7 @@ const Navbar = () => {
       <div className="flex-none hidden lg:block">
         <ul className="menu menu-horizontal text-black gap-x-3 justify-end">
           {user ? (
-            <div className="dropdown dropdown-hover dropdown-end">
-              <label tabIndex={0} className="btn m-1">
-                Hover
-              </label>
-              <ul
-                tabIndex={0}
-                className="bg-white dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2"
-              >
-                <li>
-                  <a>Item 1</a>
-                </li>
-                <li>
-                  <a>Item 2</a>
-                </li>
-              </ul>
-            </div>
+            <UserDropdown/>
           ) : (
             <>
               <LinkedButton link={"/auth/login"} title={"login"} />
