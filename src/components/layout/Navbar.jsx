@@ -5,7 +5,8 @@ import { useUser } from "../hooks/useUser";
 const Navbar = () => {
   const { user } = useUser();
   return (
-    <div className="w-full navbar bg-white  drop-shadow-lg justify-between">
+    // <div className="w-full navbar bg-white  drop-shadow-lg justify-between">
+    <div className="w-full navbar flex justify-between items-center gap-3" style={{ position: "fixed", top: 0, left: 0, width: "100%", backgroundColor: "#fff", boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)", zIndex: 1000 }}>
       <div className="flex-none lg:hidden">
         <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
           <SidebarSVG/>
