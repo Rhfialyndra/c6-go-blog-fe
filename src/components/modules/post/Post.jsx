@@ -53,7 +53,12 @@ function Post({ author, username, profileImg, postImg, title, date, likes, comme
         </div>
       </div>
       <div className={styles.post}>
-        <img className={styles['post-img']} src={postImg} alt="Post Image" />
+        <a href="/comments" onClick={(e) => {
+          e.preventDefault();
+          window.location.href = "/comments";
+        }}>
+          <img className={styles['post-img']} src={postImg} alt="Post Image" />
+        </a>
         <div className={styles['post-footer']}>
           {/* <h3 className={styles['post-title']}>{title}</h3>
           <p className={styles['post-date']}>{date}</p> */}

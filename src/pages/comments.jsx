@@ -93,12 +93,13 @@ export default function Comments() {
   }
 
   return (
-    <main className="w-screen bg-slate-500 items-center justify-center">
-      <div style={{ display: 'flex' }}>
-        <div className="sidebar" style={{ backgroundColor: "#eee", width: "calc(20vw - 50px)", height: "calc(100vh)" }}>
+    <main className=" bg-slate-500 items-center justify-center">
+      <div style={{ marginTop: "4rem" }}>
+        <div className="sidebar" style={{ backgroundColor: "#eee", 
+                                          position: "fixed", top: "4rem"}}>
           <Sidebar />
         </div>
-        <div className="content" style={{ padding: '50px', width: "calc(80vw)" }}>
+        <div className="content flex-grow" style={{ padding: '50px', width: "calc(80vw)", marginLeft:"calc(20vw - 50px)"}}>
           <div className="bg-white">
             <PostComments />
           </div>
