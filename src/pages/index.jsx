@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <div className={styles.container1}>
       <Head>
-        <title>Welcome to Go-Blog</title>
+        <title>Go-Blog | Welcome </title>
+        <meta name='description' content="go-blog is a forum post built for everyone to share their interests. 
+        Come join us and be the first person to experience our community!"/>
         <link rel="icon" href="/assets/title logo.jpg" />
       </Head>
 
