@@ -134,6 +134,8 @@ const Sidebar = () => {
             >
               Cancel
             </button>
+            </button>
+            </Modal>
           </div>
         </form>
       </Modal>

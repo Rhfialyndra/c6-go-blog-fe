@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../../../queries/auth/login";
-import toast from "react-hot-toast";
 import { IoArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { useAuth } from "../../hooks/useAuth";
+import { useUser } from "../../hooks/useUser";
 import { errorToast, successToast } from "../../../utils/toast";
 
 const LoginForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { addUser } = useUser();
 
   const {
     register,
@@ -38,7 +37,7 @@ const LoginForm = () => {
         errorToast(res.message);
       } else if (res.status == 200) {
         successToast("login successful");
-        login(res.data);
+        addUser(res.data);
         router.push("/");
       } else {
         errorToast("unknown error");
