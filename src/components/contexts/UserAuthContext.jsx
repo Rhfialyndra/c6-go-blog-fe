@@ -1,20 +1,21 @@
-import { createContext, useState } from "react";
-
-//interface UserAuthContext {
-//  user: User | null;
-//  setUser: (user: User | null) => void;
-//}
+import { createContext, useEffect, useMemo, useState } from "react";
 
 export const UserAuthContext = createContext({
-  user: {},
+  user : null,
   setUser: () => {},
 });
 
 const UserAuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
+
+  useEffect(() =>{
+    const user = JSON.parse(localStorage.getItem("user") ?? "null");
+    if (user) setUser(user);
+  }, [])
+
 
   return (
-    <UserAuthContext.Provider value={{ user, setUser }}>
+    <UserAuthContext.Provider value={{user, setUser}}>
       {children}
     </UserAuthContext.Provider>
   );

@@ -1,24 +1,42 @@
 import Sidebar from "@components/layout/Sidebar";
 import Post from "@components/modules/post/Post";
-import { useRouter } from "next/router";
-import {useUser} from "../components/hooks/useUser"
-const Home = () => {
-  const router = useRouter();
-  const {user}  = useUser();
+import Router,{ useRouter } from "next/router";
+import { postRepository } from "../db/post";
+import styles from "../styles/Post.module.css";
+import { useUser } from "../components/hooks/useUser";
 
-  if (!user) {
-    router.push("/")
-  }
-  
+const Home = () => {
+  const { user } = useUser();
+
+  if (user == null) {
+    Router.push("/auth/login")
+    return; 
+}
   return (
-    <main className="w-screen bg-slate-500 items-center justify-center">
-      <div style={{ display: 'flex'}}>
-        <div className="sidebar" style={{ backgroundColor: "#eee", width: "calc(20vw - 50px)", height: "calc(100vh)" }}>
+    <main className=" bg-slate-500 items-center justify-center">
+      <div style={{ marginTop: "4rem" }}>
+        <div
+          className="sidebar"
+          style={{ backgroundColor: "#eee", position: "fixed", top: "4rem" }}
+        >
           <Sidebar />
         </div>
-        <div className="content" style={{ padding: '50px', width: "calc(80vw)"}}>
+        <div
+          className="content flex flex-col items-center w-full"
+          style={{
+            padding: "50px",
+            width: "calc(80vw)",
+            marginLeft: "calc(20vw - 50px)",
+          }}
+        >
           <div className="bg-white">
-            <Post />
+            <div className={styles.container}>
+              <div className={styles.col}>
+                {postRepository.map((post) => (
+                  <Post key={post.title} {...post} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
