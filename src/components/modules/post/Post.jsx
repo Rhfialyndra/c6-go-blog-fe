@@ -28,7 +28,7 @@ function Post({
 
   return (
     <div className="p-8">
-      <div className={styles["post-header"]}>
+      <div className={styles["post-header"] + " w-full"}>
         <img
           className={styles["profile-img"]}
           src={profileImg}
@@ -37,6 +37,9 @@ function Post({
         <div className={styles["post-author"]}>
           <h1 className={styles["post-author-name"]}>{author}</h1>
           <p className={styles["post-username"]}>{username}</p>
+        </div>
+        <div className="place-self-end">
+          halo
         </div>
       </div>
       <div className={styles.post}>
