@@ -2,7 +2,7 @@ import authApiClient from "../../utils/authApiClient";
 
 export async function loginUser(email, password) {
   const res = authApiClient
-      .post("/login", {
+    .post("/login", {
       email: email,
       password: password,
     })
