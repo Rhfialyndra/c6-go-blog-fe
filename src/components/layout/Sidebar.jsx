@@ -6,6 +6,8 @@ import { FaFileAlt } from "react-icons/fa";
 import styles from "../../styles/sidebar.module.css";
 import styles2 from "../../styles/modal.module.css";
 import Modal from "../elements/Modal";
+import PostModal from "../elements/PostModal";
+import CreatePostModal from "../modules/post/CreatePostModal";
 
 const Sidebar = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,13 +31,14 @@ const Sidebar = () => {
       </button>
       <div>
         <div className="flex justify-center items-center py-6">
-          <button
+          <label
+          htmlFor="create-post"
             className={`${styles.createPostButton} create-post-button bg-slate-400 text-white rounded-full p-3 hover:bg-slate-500 transition-colors flex items-center`}
             style={{ fontSize: "1.15rem" }}
-            onClick={handleCreatePostClick}
+            //onClick={handleCreatePostClick}
           >
             <FaPlus className="mr-2" /> Create Post
-          </button>
+          </label>
         </div>
         <hr
           className={styles.separator}
@@ -68,6 +71,7 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
+      <CreatePostModal htmlFor={"create-post"}/>
       <Modal show={modalVisible} onClose={handleModalClose}>
         <button className={styles2.closeButton} onClick={handleModalClose}>
           <FaTimes />
@@ -134,6 +138,8 @@ const Sidebar = () => {
             >
               Cancel
             </button>
+            </button>
+            </Modal>
           </div>
         </form>
       </Modal>

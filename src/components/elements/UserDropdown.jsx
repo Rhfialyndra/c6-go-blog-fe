@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { BsChevronDown, BsFillPersonFill } from "react-icons/bs";
 import { ImExit } from "react-icons/im";
-import { useAuth } from "../hooks/useAuth";
+import { useUser } from "../hooks/useUser";
+import Link from "next/link";
 
 const UserDropdown = () => {
-  const { logout } = useAuth();
+  const { removeUser } = useUser();
   return (
     <div className="dropdown dropdown-hover dropdown-end ">
       <label
@@ -30,15 +31,16 @@ const UserDropdown = () => {
           className="bg-white dropdown-content menu p-2 shadow  rounded-box w-52 "
         >
           <li>
-            <div className="w-full flex items-center hover:bg-gray-200 transition-all duration-100">
+            <Link href={"/user/profile"} className="w-full flex items-center hover:bg-gray-200 transition-all duration-100">
+          
               <BsFillPersonFill className="w-7 h-7" />
               <p>Profile</p>
-            </div>
+            </Link>
           </li>
           <li>
             <div
               className="w-full flex items-center text-red-600 hover:bg-gray-200 transition-all duration-100"
-              onClick={() => logout()}
+              onClick={() => removeUser()}
             >
               <ImExit className="w-6 h-6 ml-1" />
               <p>logout</p>
