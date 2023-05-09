@@ -1,18 +1,17 @@
 import Sidebar from "@components/layout/Sidebar";
 import Post from "@components/modules/post/Post";
-import { useRouter } from "next/router";
-import { useUser } from "../components/hooks/useUser";
+import Router,{ useRouter } from "next/router";
 import { postRepository } from "../db/post";
 import styles from "../styles/Post.module.css";
+import { useUser } from "../components/hooks/useUser";
 
 const Home = () => {
-  const router = useRouter();
   const { user } = useUser();
 
-  if (!user) {
-    router.push("/");
-  }
-
+  if (user == null) {
+    Router.push("/auth/login")
+    return; 
+}
   return (
     <main className=" bg-slate-500 items-center justify-center">
       <div style={{ marginTop: "4rem" }}>

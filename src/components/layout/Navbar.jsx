@@ -1,10 +1,15 @@
 import SearchBar from "@components/elements/SearchBar";
 import LinkedButton from "../elements/LinkedButton";
-import { useAuth } from "../hooks/useAuth";
+import { useUser } from "../hooks/useUser";
 import UserDropdown from "../elements/UserDropdown";
+import { useEffect } from "react";
 
-const Navbar = () => {
-  const { user } = useAuth();
+const Navbar = ({onRender}) => {
+  useEffect(() => {
+    onRender();
+  }, [onRender]);
+  
+  const { user } = useUser();
   return (
     // <div className="w-full navbar bg-white  drop-shadow-lg justify-between">
     <div
@@ -25,7 +30,7 @@ const Navbar = () => {
         </label>
       </div>
 
-      <a href="../post/home">
+      <a href={user != null ? "/home" : "/"}>
         <img src="/assets/logo.jpg" alt="Logo Go-Blog" />
       </a>
 
@@ -35,7 +40,7 @@ const Navbar = () => {
 
       <div className="flex-none hidden lg:block">
         <ul className="menu menu-horizontal text-black gap-x-3 justify-end">
-          {user ? (
+          {user != null && user != {} ? (
             <UserDropdown />
           ) : (
             <>

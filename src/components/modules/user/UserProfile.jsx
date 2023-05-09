@@ -1,13 +1,7 @@
-import React from 'react'
-import Navbar from "@components/layout/Navbar";
+import Link from "next/link";
 
-const profile = () => {
-  return (
-    <div className="h-screen">
-      <nav className="fixed top-0 w-full bg-gray-900 text-white">
-        <Navbar />
-      </nav>
-      <div className="flex h-screen justify-center pt-16 items-center">
+const UserProfile = () => {
+    return(
         <div className="w-3/5 mx-auto p-5 border border-gray-300 rounded-lg bg-gray-100">
           <h1 className="font-bold text-xl mb-2">Your Profile</h1>
           <div className="flex flex-row pt-2 pb-3">
@@ -56,15 +50,14 @@ const profile = () => {
                 </div>
               </div>
               <div className="flex pt-14">
-                <div className="flex flex-row ml-auto">
+                <Link className="flex flex-row ml-auto" href={"/user/edit"}>
                   <button className="bg-cyan-500 p-2 text-white rounded-md hover:bg-cyan-600">Edit Profile</button>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  );
+        </div>        
+    )
 }
-export default profile;
+
+export default UserProfile;

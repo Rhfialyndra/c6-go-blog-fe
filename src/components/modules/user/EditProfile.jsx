@@ -1,13 +1,9 @@
 import React from 'react'
-import styles from "../../styles/Home.module.css";
 import Navbar from "@components/layout/Navbar";
 
-const editProfile = () => {
+const EditProfile = () => {
   return (
     <div class="h-screen">
-      <nav className="fixed top-0 w-full bg-gray-900 text-white">
-        <Navbar />
-      </nav>
       <div class="flex h-screen justify-center pt-16 items-center">
         <div class="w-3/5 mx-auto p-5 border border-gray-300 rounded-lg bg-gray-100">
           <h1 className="font-bold text-xl mb-2">Edit Profile</h1>
@@ -54,4 +50,4 @@ const editProfile = () => {
     </div>
   );
 }
-export default editProfile;
+export default EditProfile;
