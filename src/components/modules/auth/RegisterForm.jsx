@@ -249,7 +249,7 @@ const RegisterForm = () => {
               Password<span className="text-red-600">&#42;</span>
             </label>
             <input
-              type="text"
+              type="password"
               className={
                 "input h-[40px] rounded-[3px] focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600" +
                 (errors.password && " border-red-600")
