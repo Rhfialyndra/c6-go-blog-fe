@@ -3,9 +3,19 @@ import { BsChevronDown, BsFillPersonFill } from "react-icons/bs";
 import { ImExit } from "react-icons/im";
 import { useUser } from "../hooks/useUser";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const UserDropdown = () => {
-  const { removeUser } = useUser();
+  const { removeUser, user } = useUser();
+  const router = useRouter();
+
+  function logout() {
+    removeUser()
+    router.replace("/auth/login")
+
+  }
+
+
   return (
     <div className="dropdown dropdown-hover dropdown-end ">
       <label
@@ -21,7 +31,7 @@ const UserDropdown = () => {
         </div>
 
         <div className="flex items-center gap-x-2">
-          <p>Cb kadal</p>
+          <p>{user.username ?? "guest"}</p>
           <BsChevronDown className="w-4 h-4 mt-1" />
         </div>
       </label>
@@ -40,7 +50,7 @@ const UserDropdown = () => {
           <li>
             <div
               className="w-full flex items-center text-red-600 hover:bg-gray-200 transition-all duration-100"
-              onClick={() => removeUser()}
+              onClick={() => logout()}
             >
               <ImExit className="w-6 h-6 ml-1" />
               <p>logout</p>

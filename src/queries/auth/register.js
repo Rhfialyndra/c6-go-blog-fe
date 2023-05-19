@@ -1,6 +1,6 @@
 import authApiClient from "../../utils/authApiClient";
 
-export async function registerAccount(
+export function registerAccount(
   username,
   fullname,
   email,
