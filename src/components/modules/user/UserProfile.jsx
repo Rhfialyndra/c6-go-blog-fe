@@ -1,8 +1,11 @@
 import Link from "next/link";
 
+
 const UserProfile = () => {
+
+
     return(
-        <div className="w-3/5 mx-auto p-5 border border-gray-300 rounded-lg bg-gray-100">
+        <div className="w-full mx-auto p-5 border border-gray-300 rounded-lg bg-gray-100">
           <h1 className="font-bold text-xl mb-2">Your Profile</h1>
           <div className="flex flex-row pt-2 pb-3">
               <div class="flex flex-col pr-1">

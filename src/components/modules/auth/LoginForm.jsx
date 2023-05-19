@@ -28,7 +28,6 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     const { email, password } = data;
-
     const res = await loginUser(email, password);
 
     setTimeout(() => {
@@ -38,11 +37,11 @@ const LoginForm = () => {
       } else if (res.status == 200) {
         successToast("login successful");
         addUser(res.data);
-        router.push("/");
+        router.replace("/home");
       } else {
         errorToast("unknown error");
       }
-    }, 1000);
+    }, 200);
   };
 
   return (
