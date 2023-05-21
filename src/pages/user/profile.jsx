@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { useUser } from '../../components/hooks/useUser';
-import UserProfile from '../../components/modules/user/UserProfile.bak';
+import UserProfile from '../../components/modules/user/UserProfile.jsx';
 import BackButton from '../../components/elements/BackButton';
 import { getUserProfile } from '../../queries/user/getUserProfile';
-import {  errorToast } from '../../utils/toast';
+import {  errorToast, expiredTokenToast } from '../../utils/toast';
 import Loader from '../../components/elements/Loader';
 
 const UserProfilePage = () => {
-  const {user} = useUser();
+  const {user, removeUser} = useUser();
   const router = useRouter();
   const [userData, setUserData] = useState(null);
 
@@ -17,12 +17,18 @@ const UserProfilePage = () => {
     const res = await getUserProfile();
 
     setTimeout(()=>{
-      if (res.status >= 400) {
-        errorToast(res.message);
-      } else if (res.status == 200) {
+      if (res.status == 200) {
         setUserData(res.data)
-      } else {
-        errorToast("unknown error");
+      } else if (res.status == 401) {
+        expiredTokenToast();
+        setTimeout(() => {
+          removeUser();
+        router.replace("/auth/login");
+        }, 2000)
+      } else if (res.status >= 400) {
+        errorToast(res.message);
+      }else {
+        errorToast("unknown error while processing your request.")
       }
     }, 500)
 
