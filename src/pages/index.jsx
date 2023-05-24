@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import App from "./_app";
 import { expiredTokenToast } from "../utils/toast";
 
 export default function Home() {

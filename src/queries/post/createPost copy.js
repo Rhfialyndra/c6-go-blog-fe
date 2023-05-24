@@ -1,13 +1,11 @@
 import postApiClient from "../../utils/postApiClient";
 
 
-export async function createPost(
-  data
+export async function deletePost(
+  postId
 ) {
   const res = postApiClient
-    .post("/create-post", {
-      ...data
-    })
+    .delete("/delete_post/"+postId)
     .then((response) => {
       //console.log(response)
       return response;

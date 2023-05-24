@@ -34,9 +34,9 @@ const Navbar = ({onRender}) => {
         <img src="/assets/logo.jpg" alt="Logo Go-Blog" />
       </a>
 
-      <div className="md:w-1/2 lg:w-1/3">
+      {user != null && <div className="md:w-1/2 lg:w-1/3">
         <SearchBar />
-      </div>
+      </div>}
 
       <div className="flex-none hidden lg:block">
         <ul className="menu menu-horizontal text-black gap-x-3 justify-end">
