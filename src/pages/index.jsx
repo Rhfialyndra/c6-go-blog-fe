@@ -1,9 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { expiredTokenToast } from "../utils/toast";
 
 export default function Home() {
-  /* ini homepage kita */
 
   return (
     <div className={styles.container1}>
@@ -19,7 +17,6 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to Go-Blog!</h1>
-        <button onClick={() => expiredTokenToast()}>click me</button>
 
         <p className={styles.description}>Let's get started</p>
       </main>

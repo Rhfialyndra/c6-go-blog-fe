@@ -33,7 +33,7 @@ const CreatePostModal = ({ htmlFor, posts, postsSetter }) => {
     const res = await createPost(data);
 
     if (res.status == 200) {
-      postsSetter((posts) => [...posts, res.data]);
+      postsSetter((posts) => [res.data, ...posts]);
       successToast("your post has been created!");
       closeModal();
     } else if (res.status == 401) {

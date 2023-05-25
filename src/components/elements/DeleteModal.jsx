@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { expiredTokenToast, errorToast, successToast } from "../../utils/toast";
 import { useUser } from "../hooks/useUser";
+import { useRouter } from "next/router";
 
 const DeleteModal = ({
   htmlFor,
@@ -14,15 +15,25 @@ const DeleteModal = ({
   const { removeUser } = useUser();
   const closeModalRef = useRef(null);
 
+  const {pathname, replace} = useRouter()
   const handleDelete = async () => {
     const res = await deleteCallback(postId);
 
     if (res.status == 200) {
-      let postList = [...posts];
-      postList.splice(index, 1);
-      postsSetter(postList);
-      successToast("Your post has been deleted");
+
+      if (posts && postsSetter){
+
+        let postList = [...posts];
+        postList.splice(index, 1);
+        postsSetter(postList);
+      }
+
+
+      successToast(`Your ${isPost ? "post" : "comment"} has been deleted`);
       closeModalRef.current.click();
+      if (isPost && pathname != "/home"){
+        replace("/home");
+      }
     } else if (res.status == 401) {
       expiredTokenToast();
 
