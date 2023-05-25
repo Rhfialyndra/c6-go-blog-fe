@@ -16,14 +16,12 @@ const Contoh = () => {
     });
 
     axios.get("https://api.adviceslip.com/advice", {}).then((response) => {
-      console.log(response);
       setQuery(response.data.slip);
     });
   };
 
   useEffect(() => {
     getAdvice();
-    console.log("halo");
   }, []);
 
   const { id, advice } = query;

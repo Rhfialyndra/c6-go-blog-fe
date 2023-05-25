@@ -33,8 +33,6 @@ const RegisterForm = () => {
 
     const [year, month, date] = birthdate.split("-");
     let cleanString = date + "/" + month + "/" + year;
-    console.log(data, cleanString);
-
     const res = await registerAccount(
       username,
       fullname,
@@ -43,7 +41,6 @@ const RegisterForm = () => {
       birthdate,
       password
     );
-    console.log(res);
 
     setTimeout(() => {
       setIsLoading(false);

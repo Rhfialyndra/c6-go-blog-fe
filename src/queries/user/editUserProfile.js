@@ -1,15 +1,16 @@
-import authApiClient from "../../utils/authApiClient";
+import userApiClient from "../../utils/userApiClient";
 
-export async function loginUser(email, password) {
-  const res = authApiClient
-    .post("/login", {
-      email: email,
-      password: password,
+export function editUserProfile(data) {
+  const res = userApiClient
+    .put("/edit_profile", {
+      ...data,
     })
     .then((response) => {
+      //
       return response;
     })
     .catch((error) => {
+      //
       return {
         status: error.response.status,
         message: error.response.data.message ?? "",

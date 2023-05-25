@@ -9,61 +9,46 @@ import { getPostById } from "../../queries/post/getPostById";
 import { errorToast, expiredTokenToast } from "../../utils/toast";
 import Loader from "../../components/elements/Loader";
 
-const post = {
-  author: "John Smith",
-  username: "@johnsmith",
-  profileImg: "/assets/example.jpg",
-  postImg: "/assets/example.jpg",
-  title: "Beautiful sunset",
-  date: "April 9, 2023",
-  likes: 10,
-  comments: 5,
-  mins_read: 5,
-};
-
 export default function PostDetail() {
-  const {query, isReady, replace} = useRouter();
+  const { query, isReady, replace } = useRouter();
   const { user, removeUser } = useUser();
-  const [post, setPost] = useState(null)
-  const [comments, setComments] = useState([])
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
-
-    if (!isReady){
-        return;
+    if (!isReady) {
+      return;
     }
 
     const fetchPost = async () => {
+      const res = await getPostById(query.post_id);
 
-        const res = await getPostById(query.post_id)
-        
-        console.log(res)
+      if (res.status == 200) {
+        setPost(res.data.post);
+        setComments(res.data.comments);
+      } else if (res.status == 401) {
+        expiredTokenToast();
 
-        if(res.status == 200){
-            setPost(res.data.post);
-            setComments(res.data.comments)
-        }else if (res.status == 401) {
-            expiredTokenToast();
-    
-            setTimeout(() => {
-              removeUser();
-              replace("/auth/login");
-            }, 2000);
-          } else if (res.status >= 400) {
-            errorToast(res.message);
-          } else {
-            errorToast("unknown error while processing your request.");
-          }
-    }
+        setTimeout(() => {
+          removeUser();
+          replace("/auth/login");
+        }, 2000);
+      } else if (res.status >= 400) {
+        errorToast(res.message);
+      } else {
+        errorToast("unknown error while processing your request.");
+      }
+    };
 
     fetchPost();
-  }, [isReady])
-
+  }, [isReady]);
 
   if (!user) {
     router.push("/");
   }
-  return ( post == null ? <Loader fullscreen={true}/> :
+  return post == null ? (
+    <Loader fullscreen={true} />
+  ) : (
     <main className=" bg-gray-100 items-center justify-center">
       <div style={{ marginTop: "4rem" }}>
         <div
@@ -81,22 +66,26 @@ export default function PostDetail() {
           }}
         >
           <div className="bg-white py-4 shadow-xl rounded-md">
-          <div className="flex flex-row items-start">
-        <div className={styles.col}>
-        <Post
-                      key={post.postId}
-                      postData={post}
-                      posts={undefined}
-                      postsSetter={undefined}
-                      index={undefined}
-                      showLikeAndCommentIcon={false}
-                      truncateContent={false}
-                    />
-        </div>
-        <div className="w-1/2 px-5">
-          <CommentSection postId={post.postId} comments={comments} commentsSetter={setComments} />
-        </div>
-      </div>
+            <div className="flex flex-row items-start">
+              <div className={styles.col}>
+                <Post
+                  key={post.postId}
+                  postData={post}
+                  posts={undefined}
+                  postsSetter={undefined}
+                  index={undefined}
+                  showLikeAndCommentIcon={false}
+                  truncateContent={false}
+                />
+              </div>
+              <div className="w-1/2 px-5">
+                <CommentSection
+                  postId={post.postId}
+                  comments={comments}
+                  commentsSetter={setComments}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

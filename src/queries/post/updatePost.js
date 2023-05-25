@@ -1,19 +1,16 @@
 import postApiClient from "../../utils/postApiClient";
 
-
-export async function updatePost(
-  data
-) {
+export async function updatePost(data) {
   const res = postApiClient
     .put(`/update_post`, {
-        ...data
+      ...data,
     })
     .then((response) => {
-      //console.log(response)
+      //
       return response;
     })
     .catch((error) => {
-      //console.log(error)
+      //
       return {
         status: error.response.status,
         message: error.response.data.message ?? "",

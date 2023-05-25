@@ -14,17 +14,15 @@ const Home = () => {
   const [posts, setPosts] = useState(null);
 
   if (user == null) {
-    Router.replace("/auth/login")
-    return; 
+    Router.replace("/auth/login");
+    return;
   }
 
   useEffect(() => {
-
     const fetchAllPost = async () => {
       const res = await getAllPost();
       if (res.status == 200) {
         setPosts(res.data);
-        console.log(res.data)
       } else if (res.status == 401) {
         expiredTokenToast();
 
@@ -37,21 +35,17 @@ const Home = () => {
       } else {
         errorToast("unknown error while processing your request.");
       }
-    }
+    };
 
     fetchAllPost();
-
-
-    console.log(posts)
-
-  }, [])
+  }, []);
 
   if (user == null) {
     replace("/auth/login");
     return;
   }
 
-  if (posts == null) return <Loader fullscreen={true} />
+  if (posts == null) return <Loader fullscreen={true} />;
 
   return (
     <main className=" bg-gray-100 items-center justify-center">
@@ -70,13 +64,13 @@ const Home = () => {
             marginLeft: "calc(20vw - 50px)",
           }}
         >
-         {posts.length == 0 ? (
+          {posts.length == 0 ? (
             <NotFound message={"Buat post pertamamu!"} />
           ) : (
             <div className="bg-white border-x border-b-1 min-w-[512px]">
               <div className={styles.container + " border-b"}>
                 <div className={styles.col}>
-                  {posts.map((post,index) => (
+                  {posts.map((post, index) => (
                     <Post
                       key={post.postId}
                       postData={post}

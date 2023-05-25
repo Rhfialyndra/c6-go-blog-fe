@@ -10,11 +10,9 @@ const UserDropdown = () => {
   const router = useRouter();
 
   function logout() {
-    removeUser()
-    router.replace("/auth/login")
-
+    removeUser();
+    router.replace("/auth/login");
   }
-
 
   return (
     <div className="dropdown dropdown-hover dropdown-end ">
@@ -41,8 +39,10 @@ const UserDropdown = () => {
           className="bg-white dropdown-content menu p-2 shadow  rounded-box w-52 "
         >
           <li>
-            <Link href={"/user/profile"} className="w-full flex items-center hover:bg-gray-200 transition-all duration-100">
-          
+            <Link
+              href={"/user/profile"}
+              className="w-full flex items-center hover:bg-gray-200 transition-all duration-100"
+            >
               <BsFillPersonFill className="w-7 h-7" />
               <p>Profile</p>
             </Link>
