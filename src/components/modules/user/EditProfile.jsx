@@ -1,23 +1,26 @@
 import React from 'react'
 import { useRouter } from "next/router";
 import { useState } from 'react';
+import { editUserProfile } from '../../../queries/user/editUserProfile';
+import { errorToast, successToast, expiredTokenToast } from '../../../utils/toast';
 
-const EditProfile = () => {
-  
+const EditProfile = ({userData}) => {
+  console.log(userData)
+
+  const {username, fullname, email} = userData
+
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
   const [profileData, setProfileData] = useState({
-    fullname: '',
-    username: '',
-    email: '',
-    aboutme: '',
+    fullname: fullname,
+    username: username,
+    email: email,
   });
 
   const [fullnameError, setFullnameError] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [aboutmeError, setAboutmeError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,10 +31,9 @@ const EditProfile = () => {
     setFullnameError('');
     setUsernameError('');
     setEmailError('');
-    setAboutmeError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!profileData.fullname || profileData.fullname.trim() === '') {
       setFullnameError('Full name must be filled!');
@@ -50,13 +52,33 @@ const EditProfile = () => {
     } else {
       setEmailError('');
     }
-    
-    if (!profileData.aboutme || profileData.aboutme.trim() === '') {
-      setAboutmeError('About me must be filled!');
-    } else {
-      setAboutmeError('');
+    if (profileData.username && profileData.fullname){
+      
+      userData.username = profileData.username;
+      userData.fullname = profileData.fullname;
+
+
+      const res = await editUserProfile(userData)
+
+        if (res.status == 200) {
+          successToast("Your profile has been updated")
+          router.replace("/user/profile")
+        } else if (res.status == 401) {
+          expiredTokenToast();
+          setTimeout(() => {
+            removeUser();
+          router.replace("/auth/login");
+          }, 2000)
+        } else if (res.status >= 400) {
+          errorToast(res.message);
+        }else {
+          errorToast("unknown error while processing your request.")
+        }
+      }
+
+
+
     }
-  };
 
   return (
     <div class="h-screen">
@@ -89,14 +111,15 @@ const EditProfile = () => {
                   {usernameError && <p className="error-message text-sm text-red-400">{usernameError}</p>}
                 <div className="font-bold pt-2 text-gray-500">Email</div>
                 <input
-                  className="shadow appearance-none bg-cyan-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                disabled={true}
+                  className="disabled shadow appearance-none bg-cyan-50 border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline"
                   type="text" name="email" placeholder="Email" value={profileData.email} onChange={handleInputChange}></input>
                   {emailError && <p className="error-message text-sm text-red-400">{emailError}</p>}
                 <div className="font-bold pt-2 text-gray-500">About Me</div>
                 <input
-                  className="shadow appearance-none bg-cyan-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                disabled={true}
+                  className="disabled shadow appearance-none bg-cyan-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text" name="aboutme" placeholder="About Me" value={profileData.aboutme} onChange={handleInputChange}></input>
-                  {aboutmeError && <p className="error-message text-sm text-red-400">{aboutmeError}</p>}
                 <div class="flex pt-5">
                   <div className="flex flex-row ml-auto gap-3">
                     <button className="bg-cyan-500 p-2 text-white rounded-md hover:bg-cyan-600"
@@ -121,5 +144,5 @@ const EditProfile = () => {
       </div>
     </div>
   );
-}
+            }
 export default EditProfile;
