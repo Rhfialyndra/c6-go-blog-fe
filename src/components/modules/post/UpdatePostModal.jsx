@@ -43,10 +43,15 @@ const UpdatePostModal = ({ htmlFor, posts, postsSetter, postData, index }) => {
     const res = await updatePost(data);
 
     if (res.status == 200) {
-     let newPostList = [...posts]
-     newPostList[index].title = newTitle;
-     newPostList[index].content = newContent;
-     postsSetter(newPostList);
+
+      if (posts && postsSetter){
+
+
+        let newPostList = [...posts]
+        newPostList[index].title = newTitle;
+        newPostList[index].content = newContent;
+        postsSetter(newPostList);
+      }
       successToast("your post has been updated");
       closeModal();
     } else if (res.status == 401) {

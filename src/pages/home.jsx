@@ -83,6 +83,8 @@ const Home = () => {
                       posts={posts}
                       postsSetter={setPosts}
                       index={index}
+                      showLikeAndCommentIcon={true}
+                      truncateContent={true}
                     />
                   ))}
                 </div>

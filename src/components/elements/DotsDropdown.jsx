@@ -4,14 +4,12 @@ import { BiEditAlt } from "react-icons/bi";
 import DeleteModal from "./DeleteModal";
 import { deletePost } from "../../queries/post/deletePost";
 import UpdatePostModal from "../modules/post/UpdatePostModal";
+import { deleteComment } from "../../queries/comment/deleteComment";
 
-const DotsDropdown = ({ postData, posts, postsSetter, index }) => {
 
-  const {postId} = postData
-
-  console.log("post id is :" , postId)
+const DotsDropdown = ({ postData, posts, postsSetter, index, isPost }) => {
   return (
-    <div className="dropdown dropdown-hover dropdown-start">
+    <div className={"dropdown dropdown-hover " + (isPost ? "dropdown-start" : "dropdown-end" )}>
       <label
         tabIndex={0}
         className=" flex items-center justify-between  gap-x-3 p-2 rounded-md cursor-pointer hover:bg-gray-200 transition-all duration-100"
@@ -26,38 +24,43 @@ const DotsDropdown = ({ postData, posts, postsSetter, index }) => {
           <li>
             <label
               onClick={(e) => e.stopPropagation()}
-              htmlFor={"delete-modal-" + postId}
+              htmlFor={"delete-modal-" + (isPost ? postData.postId : "comment-"+postData.commentId)}
               className="w-full flex items-center text-red-500 hover:bg-gray-200 transition-all duration-100"
             >
               <RiDeleteBin2Line className="w-5 h-5" />
               <p>Delete</p>
             </label>
           </li>
-          <li>
+          {isPost && <li>
             <label
               onClick={(e) => e.stopPropagation()}
-              htmlFor={"edit-modal-" + postId}
+              htmlFor={"edit-modal-" + postData.postId}
               className="w-full flex items-center text-black hover:bg-gray-200 transition-all duration-100"
             >
               <BiEditAlt className="w-5 h-5" />
               <p>Edit</p>
             </label>
-          </li>
+          </li>}
         </ul>
       </div>
 
-      <DeleteModal
-        htmlFor={"delete-modal-" + postId}
-        isPost={true}
-        deleteCallback={deletePost}
-        postId={postId}
+       <DeleteModal
+        htmlFor={"delete-modal-" + (isPost ? postData.postId : "comment-"+postData.commentId)}
+        isPost={isPost}
+        deleteCallback={ isPost ? deletePost : deleteComment}
+        postId={isPost ? postData.postId : postData.commentId}
         posts={posts}
         postsSetter={postsSetter}
         index={index}
-      />
+      /> 
 
-      <UpdatePostModal htmlFor={"edit-modal-" + postId} posts={posts}
-        postsSetter={postsSetter} index={index} postData={postData}/>
+      { isPost && <UpdatePostModal
+        htmlFor={"edit-modal-" + postData.postId}
+        posts={posts}
+        postsSetter={postsSetter}
+        index={index}
+        postData={postData}
+      />}
     </div>
   );
 };

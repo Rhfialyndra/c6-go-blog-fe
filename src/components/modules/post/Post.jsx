@@ -11,12 +11,14 @@ function Post({
   posts,
   postsSetter,
   index,
+  showLikeAndCommentIcon,
+  truncateContent
 }) {
 
-  const {creator,
-    creatorId,
+  let {creator,
     title,
     content,
+    postId,
     likes} = postData
   const [numLikes, setNumLikes] = useState(likes); // add state for numLikes
   const [liked, setLiked] = useState(false); // add state for liked status
@@ -35,7 +37,11 @@ function Post({
   return (
     <article
       className="w-full border-b p-3 py-5 cursor-pointer"
-      onClick={() => Router.push("/comments")}
+      onClick={() => {
+        if(showLikeAndCommentIcon) {
+          Router.push(`/post/${postId}`)
+        }
+      }}
     >
       <div className="flex w-full items-start gap-x-2">
         <RxAvatar className="text-gray-500 w-12 h-12" />
@@ -58,6 +64,7 @@ function Post({
                     posts={posts}
                     postsSetter={postsSetter}
                     index={index}
+                    isPost={true}
                   />
                 </div>
               ) : (
@@ -70,10 +77,10 @@ function Post({
               {" "}
               {title}
             </h3>
-            <p className="">{content}</p>
+            <p className="">{ truncateContent && content.length >= 255 ? content.slice(254) +"..." : content}</p>
           </article>
 
-          <div className="flex items-center justify-start gap-x-2">
+         {showLikeAndCommentIcon && <div className="flex items-center justify-start gap-x-2">
             <button
               className={`${styles[liked ? "like-btn" : "unlike-btn"]}`}
               onClick={(e) => {
@@ -86,7 +93,7 @@ function Post({
             <button className={styles["comment-btn"]}>
               <RiChat1Line /> {0}
             </button>
-          </div>
+          </div>}
         </div>
       </div>
     </article>
