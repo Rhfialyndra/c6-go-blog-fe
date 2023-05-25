@@ -68,15 +68,13 @@ const Search = () => {
             <div className="bg-white border-x border-b-1 min-w-[512px]">
               <div className={styles.container + " border-b"}>
                 <div className={styles.col}>
-                  {posts.map((post) => (
+                {posts.map((post,index) => (
                     <Post
                       key={post.postId}
-                      creator={post.creator.username}
-                      creatorId={post.creator.id}
-                      title={post.title}
-                      content={post.content}
-                      timeCreation={post.timeCreation}
-                      likes={post.likes}
+                      postData={post}
+                      posts={posts}
+                      postsSetter={setPosts}
+                      index={index}
                     />
                   ))}
                 </div>
