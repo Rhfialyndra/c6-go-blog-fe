@@ -12,14 +12,9 @@ function Post({
   postsSetter,
   index,
   showLikeAndCommentIcon,
-  truncateContent
+  truncateContent,
 }) {
-
-  let {creator,
-    title,
-    content,
-    postId,
-    likes} = postData
+  let { creator, title, content, postId, likes } = postData;
   const [numLikes, setNumLikes] = useState(likes); // add state for numLikes
   const [liked, setLiked] = useState(false); // add state for liked status
   const { user } = useUser();
@@ -38,8 +33,8 @@ function Post({
     <article
       className="w-full border-b p-3 py-5 cursor-pointer"
       onClick={() => {
-        if(showLikeAndCommentIcon) {
-          Router.push(`/post/${postId}`)
+        if (showLikeAndCommentIcon) {
+          Router.push(`/post/${postId}`);
         }
       }}
     >
@@ -60,7 +55,7 @@ function Post({
               {creator.id === user.userId ? (
                 <div onClick={(e) => e.stopPropagation()}>
                   <DotsDropdown
-                   postData={postData}
+                    postData={postData}
                     posts={posts}
                     postsSetter={postsSetter}
                     index={index}
@@ -77,23 +72,29 @@ function Post({
               {" "}
               {title}
             </h3>
-            <p className="">{ truncateContent && content.length >= 255 ? content.slice(254) +"..." : content}</p>
+            <p className="">
+              {truncateContent && content.length >= 255
+                ? content.slice(254) + "..."
+                : content}
+            </p>
           </article>
 
-         {showLikeAndCommentIcon && <div className="flex items-center justify-start gap-x-2">
-            <button
-              className={`${styles[liked ? "like-btn" : "unlike-btn"]}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleLike();
-              }}
-            >
-              <RiHeartLine className={styles["like-icon"]} /> {numLikes}
-            </button>
-            <button className={styles["comment-btn"]}>
-              <RiChat1Line /> {0}
-            </button>
-          </div>}
+          {showLikeAndCommentIcon && (
+            <div className="flex items-center justify-start gap-x-2">
+              <button
+                className={`${styles[liked ? "like-btn" : "unlike-btn"]}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleLike();
+                }}
+              >
+                <RiHeartLine className={styles["like-icon"]} /> {numLikes}
+              </button>
+              <button className={styles["comment-btn"]}>
+                <RiChat1Line /> {0}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </article>

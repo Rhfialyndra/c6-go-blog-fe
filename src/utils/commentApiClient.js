@@ -10,7 +10,7 @@ const commentApiClient = axios.create({
 commentApiClient.interceptors.request.use(
   (config) => {
     // Do something before sending the request, e.g. add an authorization header
-    config.headers.set("X-JWT-TOKEN", localStorage.getItem("token"))
+    config.headers.set("X-JWT-TOKEN", localStorage.getItem("token"));
     return config;
   },
   (error) => {

@@ -4,11 +4,11 @@ import { useUser } from "../hooks/useUser";
 import UserDropdown from "../elements/UserDropdown";
 import { useEffect } from "react";
 
-const Navbar = ({onRender}) => {
+const Navbar = ({ onRender }) => {
   useEffect(() => {
     onRender();
   }, [onRender]);
-  
+
   const { user } = useUser();
   return (
     // <div className="w-full navbar bg-white  drop-shadow-lg justify-between">
@@ -34,9 +34,11 @@ const Navbar = ({onRender}) => {
         <img src="/assets/logo.jpg" alt="Logo Go-Blog" />
       </a>
 
-      {user != null && <div className="md:w-1/2 lg:w-1/3">
-        <SearchBar />
-      </div>}
+      {user != null && (
+        <div className="md:w-1/2 lg:w-1/3">
+          <SearchBar />
+        </div>
+      )}
 
       <div className="flex-none hidden lg:block">
         <ul className="menu menu-horizontal text-black gap-x-3 justify-end">

@@ -1,5 +1,4 @@
-
-export default function Loader({fullscreen}){
+export default function Loader({ fullscreen }) {
   return (
     <div
       className={
@@ -42,4 +41,4 @@ export default function Loader({fullscreen}){
       </svg>
     </div>
   );
-};
+}

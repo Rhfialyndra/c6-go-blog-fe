@@ -15,23 +15,20 @@ const DeleteModal = ({
   const { removeUser } = useUser();
   const closeModalRef = useRef(null);
 
-  const {pathname, replace} = useRouter()
+  const { pathname, replace } = useRouter();
   const handleDelete = async () => {
     const res = await deleteCallback(postId);
 
     if (res.status == 200) {
-
-      if (posts && postsSetter){
-
+      if (posts && postsSetter) {
         let postList = [...posts];
         postList.splice(index, 1);
         postsSetter(postList);
       }
 
-
       successToast(`Your ${isPost ? "post" : "comment"} has been deleted`);
       closeModalRef.current.click();
-      if (isPost && pathname != "/home"){
+      if (isPost && pathname != "/home") {
         replace("/home");
       }
     } else if (res.status == 401) {

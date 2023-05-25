@@ -11,8 +11,7 @@ import {
 import Router from "next/router";
 
 const UpdatePostModal = ({ htmlFor, posts, postsSetter, postData, index }) => {
-
-  const {title, content, postId, timeCreated, likes} = postData
+  const { title, content, postId, timeCreated, likes } = postData;
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
   const { user, removeUser } = useUser();
@@ -32,22 +31,19 @@ const UpdatePostModal = ({ htmlFor, posts, postsSetter, postData, index }) => {
       creatorId: user.userId,
       timeCreated: timeCreated,
       likes: likes,
-      postId : postId,
+      postId: postId,
     };
 
-    if(newTitle.length <= 0 || newContent.length <= 0){
-        errorToast("title or content can't be empty")
-        return;
+    if (newTitle.length <= 0 || newContent.length <= 0) {
+      errorToast("title or content can't be empty");
+      return;
     }
 
     const res = await updatePost(data);
 
     if (res.status == 200) {
-
-      if (posts && postsSetter){
-
-
-        let newPostList = [...posts]
+      if (posts && postsSetter) {
+        let newPostList = [...posts];
         newPostList[index].title = newTitle;
         newPostList[index].content = newContent;
         postsSetter(newPostList);
@@ -71,9 +67,7 @@ const UpdatePostModal = ({ htmlFor, posts, postsSetter, postData, index }) => {
   return (
     <ModalTemplate htmlFor={htmlFor}>
       <div className="w-full flex justify-between items-center">
-        <h3 className="font-semibold text-2xl text-gray-800">
-          Update Post
-        </h3>
+        <h3 className="font-semibold text-2xl text-gray-800">Update Post</h3>
         <label
           ref={closeRef}
           htmlFor={htmlFor}
@@ -109,13 +103,22 @@ const UpdatePostModal = ({ htmlFor, posts, postsSetter, postData, index }) => {
             value={newContent}
             placeholder="say something"
             style={{ resize: "none" }}
-            className={"textarea h-[300px] w-full rounded-md focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600"}
-            onChange={(e) => {setNewContent(e.target.value)}}
+            className={
+              "textarea h-[300px] w-full rounded-md focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600"
+            }
+            onChange={(e) => {
+              setNewContent(e.target.value);
+            }}
           />
         </div>
         <div className="w-full flex justify-end">
           <button
-            className={"p-2 px-4 rounded-[5px] bg-cyan-500 text-white hover:bg-cyan-600 " + (newTitle.length <= 0 || newContent.length <=0 ? "bg-gray-400 disabled" : "")}
+            className={
+              "p-2 px-4 rounded-[5px] bg-cyan-500 text-white hover:bg-cyan-600 " +
+              (newTitle.length <= 0 || newContent.length <= 0
+                ? "bg-gray-400 disabled"
+                : "")
+            }
             type="submit"
             onClick={() => submitHandler()}
           >

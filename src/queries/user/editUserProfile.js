@@ -1,9 +1,9 @@
 import userApiClient from "../../utils/userApiClient";
 
-export function editUserProfile( data) {
+export function editUserProfile(data) {
   const res = userApiClient
     .put("/edit_profile", {
-        ...data
+      ...data,
     })
     .then((response) => {
       //

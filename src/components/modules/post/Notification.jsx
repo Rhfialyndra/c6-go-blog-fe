@@ -1,42 +1,42 @@
-import React from 'react';
-import styles from '../../../styles/Notification.module.css';
-import { RiUser3Line } from 'react-icons/ri';
+import React from "react";
+import styles from "../../../styles/Notification.module.css";
+import { RiUser3Line } from "react-icons/ri";
 
 const notifications = [
   {
     id: 1,
-    author: 'John Smith',
-    action: 'likes your blog',
-    content: '',
-    time: '1w ago',
+    author: "John Smith",
+    action: "likes your blog",
+    content: "",
+    time: "1w ago",
   },
   {
     id: 2,
-    author: 'Jane Doe',
-    action: 'has commented:',
+    author: "Jane Doe",
+    action: "has commented:",
     content: '"Pretty Cool"',
-    time: '2d ago',
+    time: "2d ago",
   },
   {
     id: 2,
-    author: 'Jane Doe',
-    action: 'has commented:',
+    author: "Jane Doe",
+    action: "has commented:",
     content: '"Pretty Cool"',
-    time: '2d ago',
+    time: "2d ago",
   },
   {
     id: 2,
-    author: 'Jane Doe',
-    action: 'has commented:',
+    author: "Jane Doe",
+    action: "has commented:",
     content: '"Pretty Cool"',
-    time: '2d ago',
+    time: "2d ago",
   },
   {
     id: 2,
-    author: 'Jane Doe',
-    action: 'has commented:',
+    author: "Jane Doe",
+    action: "has commented:",
     content: '"Pretty Cool"',
-    time: '2d ago',
+    time: "2d ago",
   },
   // More notifications
 ];
