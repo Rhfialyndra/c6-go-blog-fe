@@ -5,7 +5,7 @@ export async function createPost(
   data
 ) {
   const res = postApiClient
-    .post("/create-post", {
+    .post("/create_post", {
       ...data
     })
     .then((response) => {

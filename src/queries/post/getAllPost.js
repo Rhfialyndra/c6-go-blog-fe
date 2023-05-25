@@ -1,6 +1,6 @@
 import postApiClient from "../../utils/postApiClient";
 
-export function getAllPost(queryTitle){
+export function getAllPost(){
 
 
     const res = postApiClient.get("/get_all_post").then(response => {

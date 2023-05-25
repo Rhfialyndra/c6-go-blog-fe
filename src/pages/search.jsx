@@ -8,14 +8,14 @@ import Sidebar from "@components/layout/Sidebar";
 import Post from "@components/modules/post/Post";
 import { errorToast, expiredTokenToast } from "../utils/toast";
 import NotFound from "../components/elements/NotFound";
-import { postRepository } from "../db/post";
 
 const Search = () => {
   const { user, removeUser } = useUser();
-  const { query, replace } = useRouter();
+  const { query, isReady, replace } = useRouter();
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
+    if (!isReady) return;
 
     const fetchPost = async () => {
       const res = await searchPost(query.query);
@@ -37,14 +37,14 @@ const Search = () => {
     };
 
     fetchPost();
-  }, [query]);
+  }, [isReady, query]);
 
   if (user == null) {
     replace("/auth/login");
     return;
   }
 
-  if (posts == null) return <Loader fullscreen={true} />;
+  if (posts == null || !isReady) return <Loader fullscreen={true} />;
   return (
     <main className=" bg-gray-100 items-center justify-center">
       <div style={{ marginTop: "4rem" }}>
@@ -63,21 +63,21 @@ const Search = () => {
           }}
         >
           {posts.length == 0 ? (
-            <NotFound />
+            <NotFound message={"Hasil pencarian tidak ditemukan"} />
           ) : (
             <div className="bg-white border-x border-b-1 min-w-[512px]">
               <div className={styles.container + " border-b"}>
                 <div className={styles.col}>
                   {posts.map((post) => (
-                    
-                    <Post key={post.postId} 
-                    creator={post.creator.username}
-                    creatorId={post.creator.id}
-                    title={post.title}
-                    content={post.content}
-                    timeCreation={post.timeCreation}
-                    likes={post.likes}/>
-
+                    <Post
+                      key={post.postId}
+                      creator={post.creator.username}
+                      creatorId={post.creator.id}
+                      title={post.title}
+                      content={post.content}
+                      timeCreation={post.timeCreation}
+                      likes={post.likes}
+                    />
                   ))}
                 </div>
               </div>

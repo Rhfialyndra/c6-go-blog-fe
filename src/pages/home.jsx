@@ -1,28 +1,30 @@
 import Sidebar from "@components/layout/Sidebar";
 import Post from "@components/modules/post/Post";
 import Router from "next/router";
-import { postRepository } from "../db/post";
 import styles from "../styles/Post.module.css";
 import { useUser } from "../components/hooks/useUser";
 import { useEffect, useState } from "react";
 import { getAllPost } from "../queries/post/getAllPost";
 import { errorToast, expiredTokenToast } from "../utils/toast";
+import NotFound from "../components/elements/NotFound";
+import Loader from "../components/elements/Loader";
 
 const Home = () => {
   const { user, removeUser } = useUser();
   const [posts, setPosts] = useState(null);
 
   if (user == null) {
-    Router.push("/auth/login")
+    Router.replace("/auth/login")
     return; 
   }
 
   useEffect(() => {
 
     const fetchAllPost = async () => {
-      const res = getAllPost();
+      const res = await getAllPost();
       if (res.status == 200) {
         setPosts(res.data);
+        console.log(res.data)
       } else if (res.status == 401) {
         expiredTokenToast();
 
@@ -44,15 +46,21 @@ const Home = () => {
 
   }, [])
 
+  if (user == null) {
+    replace("/auth/login");
+    return;
+  }
+
+  if (posts == null) return <Loader fullscreen={true} />
 
   return (
-    <main className=" bg-slate-500 items-center justify-center">
+    <main className=" bg-gray-100 items-center justify-center">
       <div style={{ marginTop: "4rem" }}>
         <div
           className="sidebar"
           style={{ backgroundColor: "#eee", position: "fixed", top: "4rem" }}
         >
-          <Sidebar />
+          <Sidebar posts={posts} postsSetter={setPosts} />
         </div>
         <div
           className="content flex flex-col items-center w-full"
@@ -62,21 +70,25 @@ const Home = () => {
             marginLeft: "calc(20vw - 50px)",
           }}
         >
-          <div className="bg-white min-w-[512px]">
-            <div className={styles.container}>
-              <div className={styles.col}>
-                {posts.map((post) => (
-                  <Post key={post.postId} 
-                  creator={post.creator.username}
-                  creatorId={post.creator.id}
-                  title={post.title}
-                  content={post.content}
-                  timeCreation={post.timeCreation}
-                  likes={likes} />
-                ))}
+         {posts.length == 0 ? (
+            <NotFound message={"Buat post pertamamu!"} />
+          ) : (
+            <div className="bg-white border-x border-b-1 min-w-[512px]">
+              <div className={styles.container + " border-b"}>
+                <div className={styles.col}>
+                  {posts.map((post,index) => (
+                    <Post
+                      key={post.postId}
+                      postData={post}
+                      posts={posts}
+                      postsSetter={setPosts}
+                      index={index}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </main>

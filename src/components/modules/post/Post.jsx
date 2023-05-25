@@ -7,17 +7,20 @@ import Router from "next/router";
 import { useUser } from "../../hooks/useUser";
 
 function Post({
-  creator,
-  creatorId,
-  postId,
-  title,
-  content,
-  timeCreation,
-  likes
+  postData,
+  posts,
+  postsSetter,
+  index,
 }) {
+
+  const {creator,
+    creatorId,
+    title,
+    content,
+    likes} = postData
   const [numLikes, setNumLikes] = useState(likes); // add state for numLikes
   const [liked, setLiked] = useState(false); // add state for liked status
-  const {user} = useUser();
+  const { user } = useUser();
 
   const toggleLike = () => {
     if (liked) {
@@ -30,38 +33,52 @@ function Post({
   };
 
   return (
-    <article className="w-full border-b p-3 py-5 cursor-pointer" onClick={() => Router.push("/comments")}>
+    <article
+      className="w-full border-b p-3 py-5 cursor-pointer"
+      onClick={() => Router.push("/comments")}
+    >
       <div className="flex w-full items-start gap-x-2">
         <RxAvatar className="text-gray-500 w-12 h-12" />
         <div className="w-full flex flex-col gap-y-3">
           <div className="flex items-center justify-start">
             <div className="flex justify-between items-start w-full">
-            <div className="flex flex-col items-start">
-              <div className="flex items-center justify-start gap-x-2">
-                <p className="text-[17px] font-semibold text-gray-700">
-                  {creator}
-                </p>
-                <p className="text-[15px] mt-1">12 Mar 2023</p>
+              <div className="flex flex-col items-start">
+                <div className="flex items-center justify-start gap-x-2">
+                  <p className="text-[17px] font-semibold text-gray-700">
+                    {creator.username}
+                  </p>
+                  <p className="text-[15px] mt-1">12 Mar 2023</p>
+                </div>
+                <p className="text-[15px]">{"@" + creator.username}</p>
               </div>
-              <p className="text-[15px]">{"@"+creator}</p>
-            </div>
-          { creatorId === user.userId ? <DotsDropdown/> : <></>}
-
+              {creator.id === user.userId ? (
+                <div onClick={(e) => e.stopPropagation()}>
+                  <DotsDropdown
+                   postData={postData}
+                    posts={posts}
+                    postsSetter={postsSetter}
+                    index={index}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <article className="py-2 flex flex-col justify-start items-start">
-            <h3 className="text-xl font-semibold text-gray-600 mb-2"> {title}</h3>
-            <p className="">
-              {content}
-            </p>
+            <h3 className="text-xl font-semibold text-gray-600 mb-2">
+              {" "}
+              {title}
+            </h3>
+            <p className="">{content}</p>
           </article>
 
           <div className="flex items-center justify-start gap-x-2">
             <button
               className={`${styles[liked ? "like-btn" : "unlike-btn"]}`}
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
-                toggleLike()
+                toggleLike();
               }}
             >
               <RiHeartLine className={styles["like-icon"]} /> {numLikes}

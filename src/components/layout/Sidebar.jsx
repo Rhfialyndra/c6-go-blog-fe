@@ -9,7 +9,7 @@ import Modal from "../elements/Modal";
 import PostModal from "../elements/PostModal";
 import CreatePostModal from "../modules/post/CreatePostModal";
 
-const Sidebar = () => {
+const Sidebar = ({posts, postsSetter}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [activeButton, setActiveButton] = useState("Posts");
 
@@ -71,7 +71,7 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <CreatePostModal htmlFor={"create-post"}/>
+      <CreatePostModal htmlFor={"create-post"} posts={posts} postsSetter={postsSetter}/>
       <Modal show={modalVisible} onClose={handleModalClose}>
         <button className={styles2.closeButton} onClick={handleModalClose}>
           <FaTimes />

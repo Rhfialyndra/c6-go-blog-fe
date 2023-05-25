@@ -1,11 +1,13 @@
 import postApiClient from "../../utils/postApiClient";
 
 
-export async function deletePost(
-  postId
+export async function updatePost(
+  data
 ) {
   const res = postApiClient
-    .delete("/delete_post/"+postId)
+    .put(`/update_post`, {
+        ...data
+    })
     .then((response) => {
       //console.log(response)
       return response;
