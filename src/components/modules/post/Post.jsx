@@ -15,6 +15,7 @@ function Post({
   truncateContent,
 }) {
   let { creator, title, content, postId, likes } = postData;
+
   const [numLikes, setNumLikes] = useState(likes); // add state for numLikes
   const [liked, setLiked] = useState(false); // add state for liked status
   const { user } = useUser();

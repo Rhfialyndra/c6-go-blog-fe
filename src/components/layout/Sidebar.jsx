@@ -8,6 +8,7 @@ import styles2 from "../../styles/modal.module.css";
 import Modal from "../elements/Modal";
 import PostModal from "../elements/PostModal";
 import CreatePostModal from "../modules/post/CreatePostModal";
+import Link from "next/link";
 
 const Sidebar = ({ posts, postsSetter }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -125,8 +126,8 @@ const Sidebar = ({ posts, postsSetter }) => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="../notification"
+                  <Link
+                  href={"/notification"}
                     className={`${styles.sidebarLink} ${
                       activeButton === "Notifications" ? styles.active : ""
                     } flex items-center px-2 py-5`} // Modified
@@ -134,7 +135,7 @@ const Sidebar = ({ posts, postsSetter }) => {
                   >
                     <FaBell className={`${styles.icon} mr-2`} />
                     <div className={styles.item}>Notifications</div>
-                  </a>
+                    </Link>
                 </li>
               </ul>
             </div>
