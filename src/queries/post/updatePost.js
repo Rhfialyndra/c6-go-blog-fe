@@ -1,12 +1,12 @@
 import postApiClient from "../../utils/postApiClient";
 
 
-export async function createPost(
+export async function updatePost(
   data
 ) {
   const res = postApiClient
-    .post("/create_post", {
-      ...data
+    .put(`/update_post`, {
+        ...data
     })
     .then((response) => {
       //console.log(response)

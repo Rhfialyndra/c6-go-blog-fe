@@ -2,7 +2,7 @@ import ModalTemplate from "../../elements/ModalTemplate";
 import { RxCross2 } from "react-icons/rx";
 import { useRef, useState } from "react";
 import { useUser } from "../../hooks/useUser";
-import { createPost } from "../../../queries/post/createPost";
+import { updatePost } from "../../../queries/post/updatePost";
 import {
   errorToast,
   successToast,
@@ -10,31 +10,44 @@ import {
 } from "../../../utils/toast";
 import Router from "next/router";
 
-const CreatePostModal = ({ htmlFor, posts, postsSetter }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+const UpdatePostModal = ({ htmlFor, posts, postsSetter, postData, index }) => {
+
+  const {title, content, postId, timeCreated, likes} = postData
+  const [newTitle, setNewTitle] = useState(title);
+  const [newContent, setNewContent] = useState(content);
   const { user, removeUser } = useUser();
   const closeRef = useRef(null);
 
   function closeModal() {
-    setTitle("");
-    setContent("");
+    setNewTitle("");
+    setNewContent("");
     closeRef.current.click();
   }
 
   async function submitHandler() {
     let data = {
-      title: title,
-      content: content,
+      title: newTitle,
+      content: newContent,
       creator: user.username,
       creatorId: user.userId,
+      timeCreated: timeCreated,
+      likes: likes,
+      postId : postId,
     };
 
-    const res = await createPost(data);
+    if(newTitle.length <= 0 || newContent.length <= 0){
+        errorToast("title or content can't be empty")
+        return;
+    }
+
+    const res = await updatePost(data);
 
     if (res.status == 200) {
-      postsSetter((posts) => [...posts, res.data]);
-      successToast("your post has been created!");
+     let newPostList = [...posts]
+     newPostList[index].title = newTitle;
+     newPostList[index].content = newContent;
+     postsSetter(newPostList);
+      successToast("your post has been updated");
       closeModal();
     } else if (res.status == 401) {
       expiredTokenToast();
@@ -54,7 +67,7 @@ const CreatePostModal = ({ htmlFor, posts, postsSetter }) => {
     <ModalTemplate htmlFor={htmlFor}>
       <div className="w-full flex justify-between items-center">
         <h3 className="font-semibold text-2xl text-gray-800">
-          Create new post
+          Update Post
         </h3>
         <label
           ref={closeRef}
@@ -76,8 +89,9 @@ const CreatePostModal = ({ htmlFor, posts, postsSetter }) => {
             name="title"
             id="title"
             placeholder="title goes here"
+            value={newTitle}
             className="input h-[40px] w-full rounded-md focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setNewTitle(e.target.value)}
           />
         </div>
 
@@ -87,19 +101,20 @@ const CreatePostModal = ({ htmlFor, posts, postsSetter }) => {
             type="text"
             name="text"
             id="text"
+            value={newContent}
             placeholder="say something"
             style={{ resize: "none" }}
-            className="textarea h-[300px] w-full rounded-md focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600"
-            onChange={(e) => setContent(e.target.value)}
+            className={"textarea h-[300px] w-full rounded-md focus:outline-none border border-[#DFE1E6] focus:border-blue-300 bg-[#FAFBFC] text-[16px] text-gray-600"}
+            onChange={(e) => {setNewContent(e.target.value)}}
           />
         </div>
         <div className="w-full flex justify-end">
           <button
-            className="p-2 px-4 rounded-[5px] bg-cyan-500 text-white hover:bg-cyan-600"
+            className={"p-2 px-4 rounded-[5px] bg-cyan-500 text-white hover:bg-cyan-600 " + (newTitle.length <= 0 || newContent.length <=0 ? "bg-gray-400 disabled" : "")}
             type="submit"
             onClick={() => submitHandler()}
           >
-            create
+            update
           </button>
         </div>
       </form>
@@ -107,4 +122,4 @@ const CreatePostModal = ({ htmlFor, posts, postsSetter }) => {
   );
 };
 
-export default CreatePostModal;
+export default UpdatePostModal;

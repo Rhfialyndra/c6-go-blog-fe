@@ -1,30 +1,27 @@
+import Loader from "../components/elements/Loader";
+import { searchPost } from "../queries/post/searchPost";
+import { useUser } from "../components/hooks/useUser";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import styles from "../styles/Post.module.css";
 import Sidebar from "@components/layout/Sidebar";
 import Post from "@components/modules/post/Post";
-import Router from "next/router";
-import styles from "../styles/Post.module.css";
-import { useUser } from "../components/hooks/useUser";
-import { useEffect, useState } from "react";
-import { getAllPost } from "../queries/post/getAllPost";
 import { errorToast, expiredTokenToast } from "../utils/toast";
 import NotFound from "../components/elements/NotFound";
-import Loader from "../components/elements/Loader";
 
-const Home = () => {
+const Search = () => {
   const { user, removeUser } = useUser();
+  const { query, isReady, replace } = useRouter();
   const [posts, setPosts] = useState(null);
 
-  if (user == null) {
-    Router.replace("/auth/login")
-    return; 
-  }
-
   useEffect(() => {
+    if (!isReady) return;
 
-    const fetchAllPost = async () => {
-      const res = await getAllPost();
+    const fetchPost = async () => {
+      const res = await searchPost(query.query);
+
       if (res.status == 200) {
         setPosts(res.data);
-        console.log(res.data)
       } else if (res.status == 401) {
         expiredTokenToast();
 
@@ -37,22 +34,17 @@ const Home = () => {
       } else {
         errorToast("unknown error while processing your request.");
       }
-    }
+    };
 
-    fetchAllPost();
-
-
-    console.log(posts)
-
-  }, [])
+    fetchPost();
+  }, [isReady, query]);
 
   if (user == null) {
     replace("/auth/login");
     return;
   }
 
-  if (posts == null) return <Loader fullscreen={true} />
-
+  if (posts == null || !isReady) return <Loader fullscreen={true} />;
   return (
     <main className=" bg-gray-100 items-center justify-center">
       <div style={{ marginTop: "4rem" }}>
@@ -60,7 +52,7 @@ const Home = () => {
           className="sidebar"
           style={{ backgroundColor: "#eee", position: "fixed", top: "4rem" }}
         >
-          <Sidebar posts={posts} postsSetter={setPosts} />
+          <Sidebar />
         </div>
         <div
           className="content flex flex-col items-center w-full"
@@ -70,13 +62,13 @@ const Home = () => {
             marginLeft: "calc(20vw - 50px)",
           }}
         >
-         {posts.length == 0 ? (
-            <NotFound message={"Buat post pertamamu!"} />
+          {posts.length == 0 ? (
+            <NotFound message={"Hasil pencarian tidak ditemukan"} />
           ) : (
             <div className="bg-white border-x border-b-1 min-w-[512px]">
               <div className={styles.container + " border-b"}>
                 <div className={styles.col}>
-                  {posts.map((post,index) => (
+                {posts.map((post,index) => (
                     <Post
                       key={post.postId}
                       postData={post}
@@ -94,4 +86,5 @@ const Home = () => {
     </main>
   );
 };
-export default Home;
+
+export default Search;
