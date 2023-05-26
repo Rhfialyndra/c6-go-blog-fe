@@ -16,9 +16,9 @@ export const useUser = () => {
   };
 
   const removeUser = () => {
-    setUser(null);
     delete localStorage.user;
     delete localStorage.token;
+    setUser(null);
   };
 
   return { user, addUser, removeUser, isPreparing };
