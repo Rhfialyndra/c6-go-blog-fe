@@ -170,12 +170,12 @@ const EditProfile = ({ userData }) => {
                 >
                   Save Profile
                 </button>
-                <button
+                <p
                   className="border border-red-500 p-2 text-red-500 rounded-md hover:bg-gray-300"
                   onClick={() => router.back()}
                 >
                   Cancel
-                </button>
+                </p>
               </div>
             </div>
           </form>
