@@ -13,11 +13,7 @@ const Home = () => {
   const { user, removeUser } = useUser();
   const [posts, setPosts] = useState(null);
 
-  if (user == null) {
-    Router.replace("/auth/login");
-    return;
-  }
-
+  
   useEffect(() => {
     const fetchAllPost = async () => {
       const res = await getAllPost();
@@ -25,7 +21,7 @@ const Home = () => {
         setPosts(res.data);
       } else if (res.status == 401) {
         expiredTokenToast();
-
+        
         setTimeout(() => {
           removeUser();
           replace("/auth/login");
@@ -36,16 +32,22 @@ const Home = () => {
         errorToast("unknown error while processing your request.");
       }
     };
-
-    fetchAllPost();
+    
+    if(user!= null) {
+      fetchAllPost();
+    }
   }, []);
-
+  
+  if (user == null) {
+    Router.replace("/auth/login");
+    return;
+  }
   if (user == null) {
     replace("/auth/login");
     return;
   }
 
-  if (posts == null) return <Loader fullscreen={true} />;
+  // if (posts == null) return <Loader fullscreen={true} />;
 
   return (
     <main className=" bg-gray-100 items-center justify-center">
@@ -56,7 +58,7 @@ const Home = () => {
         >
           <Sidebar posts={posts} postsSetter={setPosts} />
         </div>
-        <div
+        { posts == null ? <Loader fullscreen={true}/> : <div
           className="content flex flex-col items-center w-full"
           style={{
             padding: "50px",
@@ -85,7 +87,7 @@ const Home = () => {
               </div>
             </div>
           )}
-        </div>
+        </div>}
       </div>
     </main>
   );
