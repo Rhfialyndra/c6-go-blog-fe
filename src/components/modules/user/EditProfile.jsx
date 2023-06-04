@@ -84,23 +84,7 @@ const EditProfile = ({ userData }) => {
       <div class="flex h-screen justify-center pt-15 items-center">
         <div class="w-3/5 mx-auto p-5 border border-gray-300 rounded-lg bg-gray-100">
           <h1 className="font-bold text-xl text-gray-500 mb-2">Edit Profile</h1>
-          <h1 className="font-bold text-gray-500">Profile photo</h1>
-          <div class="flex flex-row pt-2 pb-3">
-            <div class="bg-white-100 border-2 border-gray-400 rounded-lg p-14"></div>
-            <div className="flex-2 pl-5 pt-3 pb-4 pr-5">
-              <h2 className="text-gray-600">Upload Your Photo</h2>
-              {/* <p className="text-gray-600 whitespace-nowrap text-sm">Your photo should be in PNG or JPG format</p> */}
-              {/* <button className="bg-cyan-500 p-2 rounded-md text-white text-sm hover:bg-cyan-600">Change Image</button> */}
-              <div className="flex flex-row ml-auto gap-3">
-                <button className="bg-cyan-500 p-2 text-white rounded-md hover:bg-cyan-600">
-                  Choose Image
-                </button>
-                <button className="border border-red-500 p-2 text-red-500 rounded-md hover:bg-gray-300">
-                  Remove
-                </button>
-              </div>
-            </div>
-          </div>
+          <br></br>
           <form onSubmit={handleSubmit}>
             <div className="font-bold text-gray-500">Full Name</div>
             <input
@@ -143,16 +127,6 @@ const EditProfile = ({ userData }) => {
             {emailError && (
               <p className="error-message text-sm text-red-400">{emailError}</p>
             )}
-            <div className="font-bold pt-2 text-gray-500">About Me</div>
-            <input
-              disabled={true}
-              className="disabled shadow appearance-none bg-cyan-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              name="aboutme"
-              placeholder="About Me"
-              value={profileData.aboutme}
-              onChange={handleInputChange}
-            ></input>
             <div class="flex pt-5">
               <div className="flex flex-row ml-auto gap-3">
                 <button
@@ -170,12 +144,12 @@ const EditProfile = ({ userData }) => {
                 >
                   Save Profile
                 </button>
-                <button
+                <p
                   className="border border-red-500 p-2 text-red-500 rounded-md hover:bg-gray-300"
                   onClick={() => router.back()}
                 >
                   Cancel
-                </button>
+                </p>
               </div>
             </div>
           </form>
