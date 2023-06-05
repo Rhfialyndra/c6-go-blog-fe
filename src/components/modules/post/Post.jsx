@@ -14,7 +14,11 @@ function Post({
   showLikeAndCommentIcon,
   truncateContent,
 }) {
-  let { creator, title, content, postId, likes } = postData;
+  let { creator, title, content, postId, likes, timeCreated } = postData;
+
+  const date = new Date(timeCreated);
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  const formattedDate = date.toLocaleDateString(["en-Us", "id-ID"], options);
 
   const [numLikes, setNumLikes] = useState(likes); // add state for numLikes
   const [liked, setLiked] = useState(false); // add state for liked status
@@ -49,7 +53,7 @@ function Post({
                   <p className="text-[17px] font-semibold text-gray-700">
                     {creator.username}
                   </p>
-                  <p className="text-[15px] mt-1">12 Mar 2023</p>
+                  <p className="text-[15px] mt-1">{formattedDate}</p>
                 </div>
                 <p className="text-[15px]">{"@" + creator.username}</p>
               </div>
