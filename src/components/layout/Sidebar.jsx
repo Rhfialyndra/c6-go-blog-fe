@@ -106,18 +106,17 @@ const Sidebar = ({ posts, postsSetter }) => {
               }} // Modified
             >
               {notificationCounter > 0 ? (
-              <>
-                <p className="h-[17px] w-[17px] rounded-full absolute bg-red-500 text-[13px] text-white text-center flex items-center justify-center left-3 top-3 animate-ping">
-                </p>
-              
-                <p className="h-[17px] w-[17px] rounded-full absolute bg-red-500 text-[13px] text-white text-center flex items-center justify-center left-3 top-3">
-                  {notificationCounter}
-                </p>
-              </>
+                <>
+                  <p className="h-[17px] w-[17px] rounded-full absolute bg-red-500 text-[13px] text-white text-center flex items-center justify-center left-3 top-3 animate-ping"></p>
+
+                  <p className="h-[17px] w-[17px] rounded-full absolute bg-red-500 text-[13px] text-white text-center flex items-center justify-center left-3 top-3">
+                    {notificationCounter}
+                  </p>
+                </>
               ) : (
                 <></>
               )}
-              <FaBell className={`${styles.icon} mr-2` } />
+              <FaBell className={`${styles.icon} mr-2`} />
               <div className={styles.item}>Notifications</div>
             </Link>
           </li>
