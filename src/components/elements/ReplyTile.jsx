@@ -8,7 +8,7 @@ const ReplyTile = ({ comment, index, comments, commentsSetter }) => {
   const options = { year: "numeric", month: "short", day: "numeric" };
   const formattedDate = date.toLocaleDateString(["en-Us", "id-ID"], options);
 
-  const {user} = useUser();
+  const { user } = useUser();
 
   return (
     <div className="mb-10 mr-4">
@@ -23,13 +23,15 @@ const ReplyTile = ({ comment, index, comments, commentsSetter }) => {
           </div>
           <p className="ml-1 mt-[0.5px] text-[14px]">{formattedDate}</p>
         </div>
-        { comment.creator.id == user.userId && <DotsDropdown
-          isPost={false}
-          postData={comment}
-          posts={comments}
-          postsSetter={commentsSetter}
-          index={index}
-        />}
+        {comment.creator.id == user.userId && (
+          <DotsDropdown
+            isPost={false}
+            postData={comment}
+            posts={comments}
+            postsSetter={commentsSetter}
+            index={index}
+          />
+        )}
       </div>
       <div className={styles["comment-content"] + " text-justify"}>
         {comment.content}

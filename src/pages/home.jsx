@@ -13,7 +13,6 @@ const Home = () => {
   const { user, removeUser } = useUser();
   const [posts, setPosts] = useState(null);
 
-  
   useEffect(() => {
     const fetchAllPost = async () => {
       const res = await getAllPost();
@@ -21,7 +20,7 @@ const Home = () => {
         setPosts(res.data);
       } else if (res.status == 401) {
         expiredTokenToast();
-        
+
         setTimeout(() => {
           removeUser();
           replace("/auth/login");
@@ -32,12 +31,12 @@ const Home = () => {
         errorToast("unknown error while processing your request.");
       }
     };
-    
-    if(user!= null) {
+
+    if (user != null) {
       fetchAllPost();
     }
   }, []);
-  
+
   if (user == null) {
     Router.replace("/auth/login");
     return;
@@ -46,8 +45,6 @@ const Home = () => {
     replace("/auth/login");
     return;
   }
-
-  // if (posts == null) return <Loader fullscreen={true} />;
 
   return (
     <main className=" bg-gray-100 items-center justify-center">
@@ -58,36 +55,40 @@ const Home = () => {
         >
           <Sidebar posts={posts} postsSetter={setPosts} />
         </div>
-        { posts == null ? <Loader fullscreen={true}/> : <div
-          className="content flex flex-col items-center w-full"
-          style={{
-            padding: "50px",
-            width: "calc(80vw)",
-            marginLeft: "calc(20vw - 50px)",
-          }}
-        >
-          {posts.length == 0 ? (
-            <NotFound message={"Buat post pertamamu!"} />
-          ) : (
-            <div className="bg-white border-x border-b-1 min-w-[512px]">
-              <div className={styles.container + " border-b"}>
-                <div className={styles.col}>
-                  {posts.map((post, index) => (
-                    <Post
-                      key={post.postId}
-                      postData={post}
-                      posts={posts}
-                      postsSetter={setPosts}
-                      index={index}
-                      showLikeAndCommentIcon={true}
-                      truncateContent={true}
-                    />
-                  ))}
+        {posts == null ? (
+          <Loader fullscreen={true} />
+        ) : (
+          <div
+            className="content flex flex-col items-center w-full"
+            style={{
+              padding: "50px",
+              width: "calc(80vw)",
+              marginLeft: "calc(20vw - 50px)",
+            }}
+          >
+            {posts.length == 0 ? (
+              <NotFound message={"Buat post pertamamu!"} />
+            ) : (
+              <div className="bg-white border-x border-b-1 min-w-[512px]">
+                <div className={styles.container + " border-b"}>
+                  <div className={styles.col}>
+                    {posts.map((post, index) => (
+                      <Post
+                        key={post.postId}
+                        postData={post}
+                        posts={posts}
+                        postsSetter={setPosts}
+                        index={index}
+                        showLikeAndCommentIcon={true}
+                        truncateContent={true}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>}
+            )}
+          </div>
+        )}
       </div>
     </main>
   );
