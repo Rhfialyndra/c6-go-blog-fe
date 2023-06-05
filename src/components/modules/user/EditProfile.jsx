@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useUser } from "../../hooks/useUser";
 import { editUserProfile } from "../../../queries/user/editUserProfile";
 import {
   errorToast,
@@ -10,6 +11,9 @@ import {
 
 const EditProfile = ({ userData }) => {
   console.log(userData);
+
+  const {user, removeUser, addUser} = useUser();
+
 
   const { username, fullname, email } = userData;
 
@@ -37,6 +41,7 @@ const EditProfile = ({ userData }) => {
     setEmailError("");
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!profileData.fullname || profileData.fullname.trim() === "") {
@@ -63,6 +68,10 @@ const EditProfile = ({ userData }) => {
       const res = await editUserProfile(userData);
 
       if (res.status == 200) {
+        let newUser = user
+        newUser.username = res.data.username;
+        removeUser()
+        addUser(newUser)
         successToast("Your profile has been updated");
         router.replace("/user/profile");
       } else if (res.status == 401) {
