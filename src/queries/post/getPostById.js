@@ -2,9 +2,7 @@ import postApiClient from "../../utils/postApiClient";
 
 export function getPostById(postId) {
   const res = postApiClient
-    .post("/get_post_by_id", {
-      postId: postId,
-    })
+    .get("/get_post/"+postId)
     .then((response) => {
       return response;
     })
